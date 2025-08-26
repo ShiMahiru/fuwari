@@ -68,7 +68,7 @@ export const profileConfig: ProfileConfig = {
 	links: [
 		{
 			name: "邮箱",
-			icon: "fa6-brands:envelope",
+			icon: "fa6-solid:envelope",
 			url: "242531778@qq.com",
 		},
 	],
