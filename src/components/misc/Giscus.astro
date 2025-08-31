@@ -1,27 +1,13 @@
 ---
-interface Props {
-  repo: string;
-  repoId: string;
-  category: string;
-  categoryId: string;
-  mapping?: string;
-  reactionsEnabled?: boolean;
-  emitMetadata?: boolean;
-  inputPosition?: 'top' | 'bottom';
-  lang?: string;
-}
-
-const {
-  repo,
-  repoId,
-  category,
-  categoryId,
+  repo = "ShiMahiru/fuwari-Giscus"
+  repoId = "R_kgDOPiR5sQ"
+  category = "Announcements"
+  categoryId = "yDIC_kwDOPiR5sc4Cud8d"
   mapping = 'pathname',
   reactionsEnabled = true,
   emitMetadata = false,
   inputPosition = 'bottom',
   lang = 'zh-CN'
-} = Astro.props;
 ---
 
 <div id="giscus-container"></div>
