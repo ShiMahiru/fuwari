@@ -4,6 +4,7 @@ description: 一些零散的记录，不定时更新
 draft: false
 image: https://www.loliapi.com/acg/pc/
 published: 2025-08-27
+pinned: true
 tags:
 - 记录
 title: 记录
