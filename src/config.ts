@@ -27,7 +27,7 @@ export const siteConfig: SiteConfig = {
 	},
 background: {
     enable: true, // Enable background image
-    src: "https://manyacg.top/setu", // Background image URL (supports HTTPS)
+    src: "https://www.loliapi.com/acg/", // Background image URL (supports HTTPS)
     position: "center", // Background position: 'top', 'center', 'bottom'
     size: "cover", // Background size: 'cover', 'contain', 'auto'
     repeat: "no-repeat", // Background repeat: 'no-repeat', 'repeat', 'repeat-x', 'repeat-y'
