@@ -1,15 +1,20 @@
 ---
-category: 博客
-description: 关于Fuwari框架博客魔改
+category: 关于Fuwari框架博客魔改博客
+description: 感谢afoim开源的部分代码跟各位大佬教程
 published: 2025-09-01
 tags:
 - 博客
 title: 博客
 ---
 
-# 主题自适应Giscus评论
-在\src\components\misc下创建一个astro组件，写入以下内容
-```Giscus.astro
+## 主题自适应Giscus评论
+:::在src\pages\posts[…slug].astro开头引入:::
+```
+import Giscus from "../../components/misc/Giscus.astro";
+```
+
+:::创建写入修改参数:::
+```ts title="src\components\misc/Giscus.astro"
 ---
   repo = "123456" // 在此输入用户名/仓库名
   repoId = "123456" // 在此输入仓库 ID
@@ -95,21 +100,15 @@ title: 博客
 </script>
 ```
 
-在src\pages\posts[…slug].astro开头引入
-```
-import Giscus from "../../components/misc/Giscus.astro";
-```
-
 # 背景图及透明卡片
 >在SiteConfig类型中添加background配置选项
 >新增透明背景颜色变量—card-bg-transparent和—float-panel-bg-transparent
 >实现背景图片加载检测及卡片透明效果切换
 >添加背景图片样式配置,包括位置、大小、重复方式等
-```
+```ts title="src\pages\posts[…slug].astro"
 			offset = offset - offset % 4;
 			document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
-
-      **// 背景图片加载检测
+{/* =========== */}
       const bgUrl = getComputedStyle(document.documentElement).getPropertyValue('--bg-url').trim();
       const bgEnable = getComputedStyle(document.documentElement).getPropertyValue('--bg-enable').trim();
       if (bgUrl && bgUrl !== 'none' && bgEnable === '1') {
@@ -127,13 +126,12 @@ import Giscus from "../../components/misc/Giscus.astro";
           img.src = urlMatch[1];
         }
       }
-**
+{/* =========== */}
  </script>
 		<style define:vars={{
 			configHue,
 			'page-width': `${PAGE_WIDTH}rem`,
-			
-            **新增透明背景颜色变量
+{/* =========== */}
 			'bg-url': siteConfig.background.src ? `url(${siteConfig.background.src})` : 'none',
 			'bg-enable': siteConfig.background.enable ? '1' : '0',
 			'bg-position': siteConfig.background.position || 'center',
@@ -184,11 +182,12 @@ import Giscus from "../../components/misc/Giscus.astro";
 			
 			body.bg-loaded::before {
 				opacity: calc(var(--bg-opacity) * var(--bg-enable)) !important;
-			}**
+			}
+{/* =========== */}
 			</style>  <!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why -->
 ```
 
-```src/types/config.ts
+```ts title="src/types/config.ts"
  background: {
    enable: boolean;
    src: string;
@@ -200,12 +199,12 @@ import Giscus from "../../components/misc/Giscus.astro";
 };
 ```
 
-```src/styles/variables.styl
+```ts title="src/styles/variables.styl"
 --card-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
 --float-panel-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
 ```
 
-```src/config.ts
+```ts title="src/config.ts"
     background: {
     enable: true, // Enable background image
     src: "https://pic.2x.nz/?img=h", // Background image URL (supports HTTPS)
@@ -217,14 +216,14 @@ import Giscus from "../../components/misc/Giscus.astro";
   },
 ```
 
-# 加文章置顶
+## 加文章置顶
 ```ts title="src/utils/content-utils.ts"
+{/* =========== */}
 const sorted = allBlogPosts.sort((a, b) => {
-    **// 如果一个是置顶一个不是置顶，置顶的排在前面
 		if (a.data.pinned !== b.data.pinned) {
 			return a.data.pinned ? -1 : 1;
 		}
-		// 都是置顶或都不是置顶，按发布日期时间排序（包含小时分钟秒）**
+{/* =========== */}
 		const dateA = new Date(a.data.published);
 		const dateB = new Date(b.data.published);
 		return dateA > dateB ? -1 : 1;
@@ -233,18 +232,21 @@ const sorted = allBlogPosts.sort((a, b) => {
 }
 ```
 
-```text title="src/components/PostCard.astro38行左右"
+```text title="src/components/PostCard.astro"
+#38行左右
 const isPinned = entry.data.pinned === true;
 ```
 
 ```astro title="src/components/PostCard.astro"
 before:absolute before:top-[35px] before:left-[18px] before:hidden md:before:block
         ">
-    **{isPinned && (
+{/* =========== */}
+    {isPinned && (
                 <span class="inline-flex items-center mr-2 px-2 py-0.5 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
                     <Icon name="material-symbols:push-pin" class="mr-1 text-base" /> 置顶
                 </span>
-            )}**
+            )}
+{/* =========== */}
     {title}
 ```
 
@@ -259,13 +261,14 @@ before:absolute before:top-[35px] before:left-[18px] before:hidden md:before:blo
         md:before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
         before:absolute before:top-[0.75rem] before:left-[-1.125rem]
     ">
-        **{entry.data.pinned && (
+{/* =========== */}
+        {entry.data.pinned && (
         <span class="inline-flex items-center mr-3 px-2.5 py-1 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
             <Icon name="material-symbols:push-pin" class="mr-1.5 text-base" /> 置顶
         </span>
-    )}**
-
-        `<span>`**{entry.data.title}**`</span>`
+    )}
+{/* =========== */}
+        <span>{entry.data.title}</span>
     </div>
 </div>
 ```
