@@ -2,7 +2,8 @@
 category: 记录
 description: 一些零散的记录，不定时更新
 draft: false
-image: https://api.rls.ovh/horizontal
+pin: true
+image: https://www.loliapi.com/acg/pc/
 published: 2025-08-27
 tags:
 - 记录
