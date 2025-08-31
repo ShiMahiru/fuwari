@@ -138,14 +138,6 @@ const jsonLd = {
         </div>
     </div>
 
-<!-- Giscus 评论区 -->
-<Giscus
-  repo="ShiMahiru/fuwari-Giscus"
-  repoId="R_kgDOPiR5sQ"
-  category="Announcements"
-  categoryId="yDIC_kwDOPiR5sc4Cud8d"
-/>
-
     <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full">
         <a href={entry.data.nextSlug ? getPostUrlBySlug(entry.data.nextSlug) : "#"}
            class:list={["w-full font-bold overflow-hidden active:scale-95", {"pointer-events-none": !entry.data.nextSlug}]}>
