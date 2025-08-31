@@ -108,8 +108,8 @@ import Giscus from "../../components/misc/Giscus.astro";
 ```
 			offset = offset - offset % 4;
 			document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
-```
-       // 背景图片加载检测
+
+      **// 背景图片加载检测
       const bgUrl = getComputedStyle(document.documentElement).getPropertyValue('--bg-url').trim();
       const bgEnable = getComputedStyle(document.documentElement).getPropertyValue('--bg-enable').trim();
       if (bgUrl && bgUrl !== 'none' && bgEnable === '1') {
@@ -117,25 +117,23 @@ import Giscus from "../../components/misc/Giscus.astro";
         const urlMatch = bgUrl.match(/url\(["']?([^"')]+)["']?\)/);
         if (urlMatch) {
           img.onload = function() {
-// 背景图片完全加载后，显示背景并启用卡片透明效果
             document.body.classList.add('bg-loaded');
             document.documentElement.style.setProperty('--card-bg', 'var(--card-bg-transparent)');
             document.documentElement.style.setProperty('--float-panel-bg', 'var(--float-panel-bg-transparent)');
           };
           img.onerror = function() {
-// Keep cards opaque if background image fails to load
             console.warn('Background image failed to load, keeping cards opaque');
           };
           img.src = urlMatch[1];
         }
       }
-```
+**
  </script>
 		<style define:vars={{
 			configHue,
 			'page-width': `${PAGE_WIDTH}rem`,
-```
-             //新增透明背景颜色变量
+			
+            **新增透明背景颜色变量
 			'bg-url': siteConfig.background.src ? `url(${siteConfig.background.src})` : 'none',
 			'bg-enable': siteConfig.background.enable ? '1' : '0',
 			'bg-position': siteConfig.background.position || 'center',
@@ -186,8 +184,7 @@ import Giscus from "../../components/misc/Giscus.astro";
 			
 			body.bg-loaded::before {
 				opacity: calc(var(--bg-opacity) * var(--bg-enable)) !important;
-			}
-```
+			}**
 			</style>  <!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why -->
 ```
 
@@ -221,15 +218,13 @@ import Giscus from "../../components/misc/Giscus.astro";
 ```
 
 # 加文章置顶
-```src/utils/content-utils.ts
-	const sorted = allBlogPosts.sort((a, b) => {
-```
-		// 如果一个是置顶一个不是置顶，置顶的排在前面
+```ts title="src/utils/content-utils.ts"
+const sorted = allBlogPosts.sort((a, b) => {
+    **// 如果一个是置顶一个不是置顶，置顶的排在前面
 		if (a.data.pinned !== b.data.pinned) {
 			return a.data.pinned ? -1 : 1;
 		}
-		// 都是置顶或都不是置顶，按发布日期时间排序（包含小时分钟秒）
-```
+		// 都是置顶或都不是置顶，按发布日期时间排序（包含小时分钟秒）**
 		const dateA = new Date(a.data.published);
 		const dateB = new Date(b.data.published);
 		return dateA > dateB ? -1 : 1;
@@ -238,44 +233,43 @@ import Giscus from "../../components/misc/Giscus.astro";
 }
 ```
 
-```src/components/PostCard.astro38行左右
+```text title="src/components/PostCard.astro38行左右"
 const isPinned = entry.data.pinned === true;
 ```
 
-```src/components/PostCard.astro
+```astro title="src/components/PostCard.astro"
 before:absolute before:top-[35px] before:left-[18px] before:hidden md:before:block
         ">
-```
-            {isPinned && (
+    **{isPinned && (
                 <span class="inline-flex items-center mr-2 px-2 py-0.5 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
                     <Icon name="material-symbols:push-pin" class="mr-1 text-base" /> 置顶
                 </span>
-            )}
-```
-            {title}
+            )}**
+    {title}
 ```
 
-```src/pages/posts/[...slug].astro
+```astro title="src/pages/posts/[...slug].astro"
 <!-- title -->
-            <div class="relative onload-animation">
-                <div
-                    data-pagefind-body data-pagefind-weight="10" data-pagefind-meta="title"
-                    class="transition w-full block font-bold mb-3
-                    text-3xl md:text-[2.25rem]/[2.75rem]
-                    text-black/90 dark:text-white/90
-                    md:before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
-                    before:absolute before:top-[0.75rem] before:left-[-1.125rem]
-                ">
-```
-                        {entry.data.pinned && (
-                        <span class="inline-flex items-center mr-3 px-2.5 py-1 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
-                            <Icon name="material-symbols:push-pin" class="mr-1.5 text-base" /> 置顶
-                        </span>
-                    )}
-```
-                    ```<span>```{entry.data.title}```</span>```
+<div class="relative onload-animation">
+    <div
+        data-pagefind-body data-pagefind-weight="10" data-pagefind-meta="title"
+        class="transition w-full block font-bold mb-3
+        text-3xl md:text-[2.25rem]/[2.75rem]
+        text-black/90 dark:text-white/90
+        md:before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
+        before:absolute before:top-[0.75rem] before:left-[-1.125rem]
+    ">
+        **{entry.data.pinned && (
+        <span class="inline-flex items-center mr-3 px-2.5 py-1 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
+            <Icon name="material-symbols:push-pin" class="mr-1.5 text-base" /> 置顶
+        </span>
+    )}**
+
+        `<span>`**{entry.data.title}**`</span>`
+    </div>
+</div>
 ```
 
-```src/content/config.ts
+```text title="src/content/config.ts"
 pinned: z.boolean().optional().default(false),
 ```
