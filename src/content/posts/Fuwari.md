@@ -1,8 +1,7 @@
 ---
 category: 博客
 description: 关于Fuwari框架博客魔改
-draft: false
-published: 2025-09-1
+published: 2025-09-01
 tags:
 - 博客
 title: 博客
