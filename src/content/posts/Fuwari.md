@@ -4,7 +4,7 @@ description: 感谢afoim开源的部分代码跟各位大佬教程
 published: 2025-09-01
 tags:
 - 博客
-title: 关于Fuwari框架博客魔改博客
+title: 关于我的Fuwari框架博客魔改
 ---
 
 ## 主题自适应Giscus评论
@@ -100,11 +100,11 @@ import Giscus from "../../components/misc/Giscus.astro";
 ```
 
 ## 背景图及透明卡片
-1.请修改高亮部分内代码
-2.在SiteConfig类型中添加background配置选项
-3.新增透明背景颜色变量—card-bg-transparent和—float-panel-bg-transparent
-4.实现背景图片加载检测及卡片透明效果切换
-5.添加背景图片样式配置,包括位置、大小、重复方式等
+### 1.请修改高亮部分内代码
+### 2.在SiteConfig类型中添加background配置选项
+### 3.新增透明背景颜色变量—card-bg-transparent和—float-panel-bg-transparent
+### 4.实现背景图片加载检测及卡片透明效果切换
+### 5.添加背景图片样式配置,包括位置、大小、重复方式等
 ```ts title="src\pages\posts[…slug].astro" {3-21,26-78}
 	offset = offset - offset % 4;
 	document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
@@ -218,7 +218,7 @@ import Giscus from "../../components/misc/Giscus.astro";
 
 ## 加文章置顶
 ### 请修改高亮部分内代码
-```ts title="src/utils/content-utils.ts"
+```ts title="src/utils/content-utils.ts" {3-7}
 const sorted = allBlogPosts.sort((a, b) => {
 
 		// 如果一个是置顶一个不是置顶，置顶的排在前面
@@ -239,7 +239,7 @@ const isPinned = entry.data.pinned === true;
 ```
 
 ### 请修改高亮部分内代码
-```astro title="src/components/PostCard.astro"
+```astro title="src/components/PostCard.astro" {8-12}
     class="transition group w-full block font-bold mb-3 text-3xl text-90
     hover:text-[var(--primary)] dark:hover:text-[var(--primary)]
     active:text-[var(--title-active)] dark:active:text-[var(--title-active)]
@@ -257,7 +257,7 @@ const isPinned = entry.data.pinned === true;
 ```
 
 ### 请修改高亮部分内代码
-```astro title="src/pages/posts/[...slug].astro"
+```astro title="src/pages/posts/[...slug].astro" {12-16}
 
 <!-- title -->
 <div class="relative onload-animation">
@@ -287,7 +287,7 @@ pinned: z.boolean().optional().default(false),
 
 ## 加文章帮助反馈
 ### 请修改高亮部分内代码
-```astro title="src/pages/posts/[...slug].astro"
+```astro title="src/pages/posts/[...slug].astro" {3-21}
         {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
         <!-- 文章帮助反馈区域 -->
