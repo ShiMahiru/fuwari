@@ -1,19 +1,18 @@
 ---
-category: 关于Fuwari框架博客魔改博客
+category: 博客
 description: 感谢afoim开源的部分代码跟各位大佬教程
 published: 2025-09-01
 tags:
 - 博客
-title: 博客
+title: 关于Fuwari框架博客魔改博客
 ---
 
 ## 主题自适应Giscus评论
-:::在src\pages\posts[…slug].astro开头引入:::
-```
+```ts title="src\components\misc/Giscus.astro"
 import Giscus from "../../components/misc/Giscus.astro";
 ```
 
-:::创建写入修改参数:::
+## 创建写入修改参数
 ```ts title="src\components\misc/Giscus.astro"
 ---
   repo = "123456" // 在此输入用户名/仓库名
@@ -100,91 +99,92 @@ import Giscus from "../../components/misc/Giscus.astro";
 </script>
 ```
 
-# 背景图及透明卡片
->在SiteConfig类型中添加background配置选项
->新增透明背景颜色变量—card-bg-transparent和—float-panel-bg-transparent
->实现背景图片加载检测及卡片透明效果切换
->添加背景图片样式配置,包括位置、大小、重复方式等
-```ts title="src\pages\posts[…slug].astro"
-			offset = offset - offset % 4;
-			document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
-{/* =========== */}
-      const bgUrl = getComputedStyle(document.documentElement).getPropertyValue('--bg-url').trim();
-      const bgEnable = getComputedStyle(document.documentElement).getPropertyValue('--bg-enable').trim();
-      if (bgUrl && bgUrl !== 'none' && bgEnable === '1') {
-        const img = new Image();
-        const urlMatch = bgUrl.match(/url\(["']?([^"')]+)["']?\)/);
-        if (urlMatch) {
-          img.onload = function() {
-            document.body.classList.add('bg-loaded');
-            document.documentElement.style.setProperty('--card-bg', 'var(--card-bg-transparent)');
-            document.documentElement.style.setProperty('--float-panel-bg', 'var(--float-panel-bg-transparent)');
-          };
-          img.onerror = function() {
-            console.warn('Background image failed to load, keeping cards opaque');
-          };
-          img.src = urlMatch[1];
-        }
-      }
-{/* =========== */}
- </script>
-		<style define:vars={{
-			configHue,
-			'page-width': `${PAGE_WIDTH}rem`,
-{/* =========== */}
-			'bg-url': siteConfig.background.src ? `url(${siteConfig.background.src})` : 'none',
-			'bg-enable': siteConfig.background.enable ? '1' : '0',
-			'bg-position': siteConfig.background.position || 'center',
-			'bg-size': siteConfig.background.size || 'cover',
-			'bg-repeat': siteConfig.background.repeat || 'no-repeat',
-			'bg-attachment': siteConfig.background.attachment || 'fixed',
-			'bg-opacity': (siteConfig.background.opacity || 0.3).toString()
-		}}>
-			:root {
-				--bg-url: var(--bg-url);
-				--bg-enable: var(--bg-enable);
-				--bg-position: var(--bg-position);
-				--bg-size: var(--bg-size);
-				--bg-repeat: var(--bg-repeat);
-				--bg-attachment: var(--bg-attachment);
-				--bg-opacity: var(--bg-opacity);
-			}
-			
-			/* Background image configuration */
-			body {
-				--bg-url: var(--bg-url);
-				--bg-enable: var(--bg-enable);
-				--bg-position: var(--bg-position);
-				--bg-size: var(--bg-size);
-				--bg-repeat: var(--bg-repeat);
-				--bg-attachment: var(--bg-attachment);
-				--bg-opacity: var(--bg-opacity);
-			}
-			
-			body::before {
-				content: '' !important;
-				position: fixed !important;
-				top: 0 !important;
-				left: 0 !important;
-				width: 100% !important;
-				height: 100% !important;
-				background-image: var(--bg-url) !important;
-				background-position: var(--bg-position) !important;
-				background-size: var(--bg-size) !important;
-				background-repeat: var(--bg-repeat) !important;
-				background-attachment: var(--bg-attachment) !important;
-				opacity: 0 !important;
-				pointer-events: none !important;
-				z-index: -1 !important;
-				display: block !important;
-				transition: opacity 0.3s ease-in-out !important;
-			}
-			
-			body.bg-loaded::before {
-				opacity: calc(var(--bg-opacity) * var(--bg-enable)) !important;
-			}
-{/* =========== */}
-			</style>  <!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why -->
+## 背景图及透明卡片
+1.请修改高亮部分内代码
+2.在SiteConfig类型中添加background配置选项
+3.新增透明背景颜色变量—card-bg-transparent和—float-panel-bg-transparent
+4.实现背景图片加载检测及卡片透明效果切换
+5.添加背景图片样式配置,包括位置、大小、重复方式等
+```ts title="src\pages\posts[…slug].astro" {3-21,26-78}
+	offset = offset - offset % 4;
+	document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
+
+    const bgUrl = getComputedStyle(document.documentElement).getPropertyValue('--bg-url').trim();
+    const bgEnable = getComputedStyle(document.documentElement).getPropertyValue('--bg-enable').trim();
+    if (bgUrl && bgUrl !== 'none' && bgEnable === '1') {
+    const img = new Image();
+    const urlMatch = bgUrl.match(/url\(["']?([^"')]+)["']?\)/);
+    if (urlMatch) {
+      img.onload = function() {
+        document.body.classList.add('bg-loaded');
+        document.documentElement.style.setProperty('--card-bg', 'var(--card-bg-transparent)');
+        document.documentElement.style.setProperty('--float-panel-bg', 'var(--float-panel-bg-transparent)');
+      };
+      img.onerror = function() {
+        console.warn('Background image failed to load, keeping cards opaque');
+      };
+      img.src = urlMatch[1];
+    }
+    }
+
+</script>
+<style define:vars={{
+	configHue,
+	'page-width': `${PAGE_WIDTH}rem`,
+
+	'bg-url': siteConfig.background.src ? `url(${siteConfig.background.src})` : 'none',
+	'bg-enable': siteConfig.background.enable ? '1' : '0',
+	'bg-position': siteConfig.background.position || 'center',
+	'bg-size': siteConfig.background.size || 'cover',
+	'bg-repeat': siteConfig.background.repeat || 'no-repeat',
+	'bg-attachment': siteConfig.background.attachment || 'fixed',
+	'bg-opacity': (siteConfig.background.opacity || 0.3).toString()
+}}>
+	:root {
+		--bg-url: var(--bg-url);
+		--bg-enable: var(--bg-enable);
+		--bg-position: var(--bg-position);
+		--bg-size: var(--bg-size);
+		--bg-repeat: var(--bg-repeat);
+		--bg-attachment: var(--bg-attachment);
+		--bg-opacity: var(--bg-opacity);
+	}
+	
+	/* Background image configuration */
+	body {
+		--bg-url: var(--bg-url);
+		--bg-enable: var(--bg-enable);
+		--bg-position: var(--bg-position);
+		--bg-size: var(--bg-size);
+		--bg-repeat: var(--bg-repeat);
+		--bg-attachment: var(--bg-attachment);
+		--bg-opacity: var(--bg-opacity);
+	}
+	
+	body::before {
+		content: '' !important;
+		position: fixed !important;
+		top: 0 !important;
+		left: 0 !important;
+		width: 100% !important;
+		height: 100% !important;
+		background-image: var(--bg-url) !important;
+		background-position: var(--bg-position) !important;
+		background-size: var(--bg-size) !important;
+		background-repeat: var(--bg-repeat) !important;
+		background-attachment: var(--bg-attachment) !important;
+		opacity: 0 !important;
+		pointer-events: none !important;
+		z-index: -1 !important;
+		display: block !important;
+		transition: opacity 0.3s ease-in-out !important;
+	}
+	
+	body.bg-loaded::before {
+		opacity: calc(var(--bg-opacity) * var(--bg-enable)) !important;
+	}
+
+</style>  <!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why -->
 ```
 
 ```ts title="src/types/config.ts"
@@ -217,13 +217,15 @@ import Giscus from "../../components/misc/Giscus.astro";
 ```
 
 ## 加文章置顶
+### 请修改高亮部分内代码
 ```ts title="src/utils/content-utils.ts"
-{/* =========== */}
 const sorted = allBlogPosts.sort((a, b) => {
+
+		// 如果一个是置顶一个不是置顶，置顶的排在前面
 		if (a.data.pinned !== b.data.pinned) {
 			return a.data.pinned ? -1 : 1;
 		}
-{/* =========== */}
+		// 都是置顶或都不是置顶，按发布日期时间排序（包含小时分钟秒）
 		const dateA = new Date(a.data.published);
 		const dateB = new Date(b.data.published);
 		return dateA > dateB ? -1 : 1;
@@ -233,24 +235,30 @@ const sorted = allBlogPosts.sort((a, b) => {
 ```
 
 ```text title="src/components/PostCard.astro"
-#38行左右
 const isPinned = entry.data.pinned === true;
 ```
 
+### 请修改高亮部分内代码
 ```astro title="src/components/PostCard.astro"
-before:absolute before:top-[35px] before:left-[18px] before:hidden md:before:block
-        ">
-{/* =========== */}
+    class="transition group w-full block font-bold mb-3 text-3xl text-90
+    hover:text-[var(--primary)] dark:hover:text-[var(--primary)]
+    active:text-[var(--title-active)] dark:active:text-[var(--title-active)]
+    before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
+    before:absolute before:top-[35px] before:left-[18px] before:hidden md:before:block
+    ">
+    
     {isPinned && (
-                <span class="inline-flex items-center mr-2 px-2 py-0.5 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
-                    <Icon name="material-symbols:push-pin" class="mr-1 text-base" /> 置顶
-                </span>
-            )}
-{/* =========== */}
+    <span class="inline-flex items-center mr-2 px-2 py-0.5 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
+        <Icon name="material-symbols:push-pin" class="mr-1 text-base" /> 置顶
+    </span>
+    )}
+    
     {title}
 ```
 
+### 请修改高亮部分内代码
 ```astro title="src/pages/posts/[...slug].astro"
+
 <!-- title -->
 <div class="relative onload-animation">
     <div
@@ -261,13 +269,13 @@ before:absolute before:top-[35px] before:left-[18px] before:hidden md:before:blo
         md:before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
         before:absolute before:top-[0.75rem] before:left-[-1.125rem]
     ">
-{/* =========== */}
-        {entry.data.pinned && (
-        <span class="inline-flex items-center mr-3 px-2.5 py-1 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
-            <Icon name="material-symbols:push-pin" class="mr-1.5 text-base" /> 置顶
-        </span>
-    )}
-{/* =========== */}
+
+            {entry.data.pinned && (
+            <span class="inline-flex items-center mr-3 px-2.5 py-1 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
+                <Icon name="material-symbols:push-pin" class="mr-1.5 text-base" /> 置顶
+            </span>
+        )}
+
         <span>{entry.data.title}</span>
     </div>
 </div>
@@ -275,4 +283,32 @@ before:absolute before:top-[35px] before:left-[18px] before:hidden md:before:blo
 
 ```text title="src/content/config.ts"
 pinned: z.boolean().optional().default(false),
+```
+
+## 加文章帮助反馈
+### 请修改高亮部分内代码
+```astro title="src/pages/posts/[...slug].astro"
+        {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
+
+        <!-- 文章帮助反馈区域 -->
+        <div class="mb-4 p-3 rounded-lg bg-[var(--license-block-bg)] border border-[var(--line-divider)] onload-animation">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="h-4 w-4 rounded bg-[var(--primary)] flex items-center justify-center">
+                        <Icon name="material-symbols:help-outline" class="text-[0.75rem] text-white dark:text-black/70"></Icon>
+                    </div>
+                    <p class="text-black/80 dark:text-white/80 text-sm">这篇文章是否对你有帮助？</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="/posts/pin/" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--btn-regular-bg)] hover:bg-[var(--btn-regular-bg-hover)] active:bg-[var(--btn-regular-bg-active)] text-[var(--btn-content)] text-xs font-medium transition-all active:scale-95">
+                        <Icon name="material-symbols:contact-mail-outline" class="text-[0.875rem] group-hover:scale-110 transition-transform"></Icon>
+                        联系
+                    </a>
+                    <a href="/donate/" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--primary)] hover:bg-[oklch(0.65_0.16_var(--hue))] active:bg-[oklch(0.60_0.18_var(--hue))] text-white dark:text-black/80 text-xs font-medium transition-all active:scale-95">
+                        <Icon name="material-symbols:favorite-outline" class="text-[0.875rem] group-hover:scale-110 transition-transform"></Icon>
+                        赞助
+                 </a>
+          </div>
+    </div>
+</div>
 ```
