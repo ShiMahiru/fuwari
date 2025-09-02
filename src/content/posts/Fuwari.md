@@ -7,7 +7,16 @@ tags:
 title: 关于我的Fuwari框架博客魔改
 ---
 
-## 主题自适应Giscus评论
+# 功能实现
+## 1.自适应主题Giscus评论
+## 2.背景图及透明卡片
+## 3.背景图及透明卡片
+## 4.文章帮助反馈
+## 5.右上角友链+赞助+统计
+
+>若找不到建议搜索关键词 加高亮部分
+
+## 自适应主题Giscus评论
 ```ts title="src\components\misc/Giscus.astro"
 import Giscus from "../../components/misc/Giscus.astro";
 ```
@@ -100,11 +109,7 @@ import Giscus from "../../components/misc/Giscus.astro";
 ```
 
 ## 背景图及透明卡片
-### 1.请修改高亮部分内代码
-### 2.在SiteConfig类型中添加background配置选项
-### 3.新增透明背景颜色变量—card-bg-transparent和—float-panel-bg-transparent
-### 4.实现背景图片加载检测及卡片透明效果切换
-### 5.添加背景图片样式配置,包括位置、大小、重复方式等
+- 检测背景图片加载状态，成功加载后启用透明效果
 ```ts title="src\pages\posts[…slug].astro" {3-21,26-78}
 	offset = offset - offset % 4;
 	document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
@@ -217,7 +222,6 @@ import Giscus from "../../components/misc/Giscus.astro";
 ```
 
 ## 加文章置顶
-### 请修改高亮部分内代码
 ```ts title="src/utils/content-utils.ts" {3-7}
 const sorted = allBlogPosts.sort((a, b) => {
 
@@ -238,7 +242,6 @@ const sorted = allBlogPosts.sort((a, b) => {
 const isPinned = entry.data.pinned === true;
 ```
 
-### 请修改高亮部分内代码
 ```astro title="src/components/PostCard.astro" {8-12}
     class="transition group w-full block font-bold mb-3 text-3xl text-90
     hover:text-[var(--primary)] dark:hover:text-[var(--primary)]
@@ -256,7 +259,6 @@ const isPinned = entry.data.pinned === true;
     {title}
 ```
 
-### 请修改高亮部分内代码
 ```astro title="src/pages/posts/[...slug].astro" {12-16}
 
 <!-- title -->
@@ -285,8 +287,7 @@ const isPinned = entry.data.pinned === true;
 pinned: z.boolean().optional().default(false),
 ```
 
-## 加文章帮助反馈
-### 请修改高亮部分内代码
+## 文章帮助反馈
 ```astro title="src/pages/posts/[...slug].astro" {3-21}
         {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
@@ -312,3 +313,273 @@ pinned: z.boolean().optional().default(false),
     </div>
 </div>
 ```
+
+# 右上角友链+赞助+统计
+```ts title="src\config.ts" {2-4}
+export const navBarConfig: NavBarConfig = {
+	links: [
+		LinkPreset.Home,
+		LinkPreset.Archive,
+		LinkPreset.About,
+		{
+			name: "友链",
+			url: "/friends/", // Internal links should not include the base path, as it is automatically added
+			external: false, // Show an external link icon and will open in a new tab
+		},
+		{
+			name: "赞助",
+			url: "/donate/", // Internal links should not include the base path, as it is automatically added
+			external: false, // Show an external link icon and will open in a new tab
+		},
+		{
+			name: "统计",
+			url: "https://us.umami.is/share/xxxxxxxxx", // Internal links should not include the base path, as it is automatically added
+			external: true, // Show an external link icon and will open in a new tab
+		},
+		{
+			name: "GitHub",
+			url: "https://github.com/saicaca/fuwari", // Internal links should not include the base path, as it is automatically added
+			external: true, // Show an external link icon and will open in a new tab
+		},
+	],
+};
+```
+
+## 创建赞助文件写入修改参数
+```ts title="/pages/friends.astro"
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<MainGridLayout title="赞助支持">
+    <div class="card-base p-6 md:p-8">
+        <div class="flex items-center gap-2 mb-6">
+            <div class="h-8 w-8 rounded-lg bg-[var(--primary)] flex items-center justify-center text-white dark:text-black/70">
+                <Icon name="material-symbols:favorite" class="text-[1.5rem]">
+            </div>
+            <h1 class="text-2xl font-bold text-black dark:text-white">赞助支持</h1>
+        </div>
+
+        <div class="mb-6">
+            <p class="text-lg text-black/80 dark:text-white/80 mb-3">
+                如果您觉得我的内容对您有帮助，欢迎通过以下方式支持我的创作。您的每一份支持都是我持续创作的动力！
+            </p>
+            <p class="text-sm text-black/60 dark:text-white/60">
+                所有赞助将用于网站维护、服务器费用以及内容创作。
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 max-w-4xl mx-auto">
+            <!-- 支付宝 -->
+            <div class="donate-card">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="h-10 w-10 rounded-lg bg-blue-500 flex items-center justify-center">
+                        <Icon name="fa6-brands:alipay" class="text-[1.5rem] text-white">
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-black dark:text-white">支付宝</h3>
+                        <p class="text-sm text-black/60 dark:text-white/60">扫码支付</p>
+                    </div>
+                </div>
+                <div class="qr-code-placeholder">
+                    <img src="/donate/alipay.svg" alt="支付宝二维码" class="w-48 h-48 mx-auto rounded-lg" />
+                </div>
+            </div>
+
+            <!-- 微信支付 -->
+            <div class="donate-card">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="h-10 w-10 rounded-lg bg-green-500 flex items-center justify-center">
+                        <Icon name="fa6-brands:weixin" class="text-[1.5rem] text-white">
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-black dark:text-white">微信支付</h3>
+                        <p class="text-sm text-black/60 dark:text-white/60">扫码支付</p>
+                    </div>
+                </div>
+                <div class="qr-code-placeholder">
+                    <img src="/donate/wechat.svg" alt="微信支付二维码" class="w-48 h-48 mx-auto rounded-lg" />
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <!-- 其他支持方式 -->
+        <div class="card-base p-6 mb-6">
+            <h2 class="text-xl font-bold text-black dark:text-white mb-3">其他支持方式</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="support-card">
+                    <div class="flex items-center gap-2 mb-2">
+                        <Icon name="material-symbols:share" class="text-[1.2rem] text-[var(--primary)]">
+                        <span class="font-semibold text-black dark:text-white">分享推荐</span>
+                    </div>
+                    <p class="text-sm text-black/60 dark:text-white/60">
+                        将我的博客分享给更多朋友
+                    </p>
+                </div>
+
+                <div class="support-card">
+                    <div class="flex items-center gap-2 mb-2">
+                        <Icon name="material-symbols:comment" class="text-[1.2rem] text-[var(--primary)]">
+                        <span class="font-semibold text-black dark:text-white">留言互动</span>
+                    </div>
+                    <p class="text-sm text-black/60 dark:text-white/60">
+                        在文章下方留下您的想法
+                    </p>
+                </div>
+
+                <div class="support-card">
+                    <div class="flex items-center gap-2 mb-2">
+                        <Icon name="material-symbols:star" class="text-[1.2rem] text-[var(--primary)]">
+                        <span class="font-semibold text-black dark:text-white">关注订阅</span>
+                    </div>
+                    <p class="text-sm text-black/60 dark:text-white/60">
+                        订阅RSS或关注社交媒体
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="sponsors-section card-base p-6">
+            <h2 class="text-xl font-bold text-black dark:text-white mb-3 flex items-center gap-2">
+                <Icon name="material-symbols:group" class="text-[1.5rem] text-[var(--primary)]"></Icon>
+                <span>已赞助的小伙伴</span>
+            </h2>
+            <p class="text-sm text-black/60 dark:text-white/60 mb-4">
+            如果您已赞助，并且想加入赞助名单，请自行提交 <a target="_blank" href="mailto:242531778@qq.com" class="transition link text-[var(--primary)] font-medium underline">点击这里提交</a>
+            </p>
+            <div class="sponsors-grid">
+
+                <div class="sponsor-card">
+                    <div class="flex items-center gap-3 p-4 rounded-lg bg-[var(--card-bg)] border border-black/10 dark:border-white/10">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center overflow-hidden">
+                        	<img src="https://q2.qlogo.cn/headimg_dl?dst_uin=242531778&spec=0" alt="" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-black dark:text-white text-sm">ShiMahiru</h4>
+                            <p class="text-xs text-black/60 dark:text-white/60">2025-09-1</p>
+                        </div>
+                        <div class="text-xs text-[var(--primary)] font-medium">100 ￥</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</MainGridLayout>
+
+<style>
+.donate-card {
+    @apply flex flex-col p-4 rounded-lg bg-[var(--card-bg)] border border-black/10 dark:border-white/10 hover:border-black/20 dark:hover:border-white/20 transition;
+}
+
+.support-card {
+    @apply p-4 rounded-lg bg-[var(--card-bg)] hover:bg-black/5 dark:hover:bg-white/5 transition;
+}
+
+.qr-code-placeholder {
+    @apply text-center;
+}
+
+.sponsors-section {
+    @apply mt-6;
+}
+
+.sponsors-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
+.sponsor-placeholder {
+    @apply transition-all duration-200 hover:scale-105;
+}
+
+.sponsor-card {
+    @apply transition-all duration-200 hover:shadow-md hover:scale-105;
+}
+.crypto-info {
+    @apply space-y-3;
+}
+
+.wallet-address, .bybit-uid {
+    @apply text-center;
+}
+
+.copy-btn {
+    @apply transition-colors duration-200;
+}
+
+.copy-btn:hover {
+    color: var(--primary);
+    opacity: 0.8;
+}
+</style>
+
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        // 可以添加复制成功的提示
+        alert('已复制到剪贴板');
+    }, function(err) {
+        console.error('复制失败: ', err);
+    });
+}
+</script>
+```
+
+## 创建友链文件写入修改参数
+```ts title="src/pages/donate.astro"
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<MainGridLayout title="友链">
+    <div class="card-base p-6 md:p-8">
+        <div class="flex items-center gap-2 mb-6">
+            <div class="h-8 w-8 rounded-lg bg-[var(--primary)] flex items-center justify-center text-white dark:text-black/70">
+                <Icon name="material-symbols:diversity-3" class="text-[1.5rem]">
+            </div>
+            <h1 class="text-2xl font-bold text-black dark:text-white">友链</h1>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a href="https://vercel.com/" target="_blank" class="friend-card">
+                <div class="flex items-center gap-2">
+                    <img src="https://assets.vercel.com/image/upload/front/favicon/vercel/apple-touch-icon-256x256.png" loading="lazy" class="w-5 h-5 rounded">
+                    <div class="font-bold text-black dark:text-white">Vercel</div>
+                </div>
+                <div class="text-sm text-black/50 dark:text-white/50">该网站由 Vercel 部署并加速。</div>
+            </a>
+        </div>
+
+        <!-- 申请友链 -->
+        <div class="sponsors-section mt-8">
+        	<h2 class="text-xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
+        		<Icon name="material-symbols:group" class="text-[1.5rem] text-[var(--primary)]"/>
+        		将您的网站加入本站友链
+              </h2>
+        	<p class="text-sm text-black/60 dark:text-white/60">
+        		请自行提交 <a target="_blank" href="mailto:242531778@qq.com" class="transition link text-[var(--primary)] font-medium underline">点击这里提交</a>
+        	</p>
+        <br>
+    </div>
+
+</MainGridLayout>
+
+<style>
+.friend-card {
+    @apply flex flex-col gap-1 p-4 rounded-lg bg-[var(--card-bg)] hover:bg-black/5 dark:hover:bg-white/5 transition;
+}
+</style>
+```
+
+## 然后赞助把二维码放在/donate/也可以其他地方随便
+
+## 配置umami
+```ts title="src/layout/Layout.astro" {3}
+<link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${Astro.site}rss.xml`}/>
+
+		<script defer src="https://us.umami.is//script.js" data-website-id="xxxxxxxxxxxxxxxx"></script>
+```
+
+## 这个去 [umami](https://us.umami.is/) 注册设置添加既可
+
