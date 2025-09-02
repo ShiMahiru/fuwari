@@ -100,11 +100,11 @@ import Giscus from "../../components/misc/Giscus.astro";
 ```
 
 ## 背景图及透明卡片
-1. 请修改高亮部分内代码
-2. 在SiteConfig类型中添加background配置选项
-3. 新增透明背景颜色变量—card-bg-transparent和—float-panel-bg-transparent
-4. 实现背景图片加载检测及卡片透明效果切换
-5. 添加背景图片样式配置,包括位置、大小、重复方式等
+### 1.请修改高亮部分内代码
+### 2.在SiteConfig类型中添加background配置选项
+### 3.新增透明背景颜色变量—card-bg-transparent和—float-panel-bg-transparent
+### 4.实现背景图片加载检测及卡片透明效果切换
+### 5.添加背景图片样式配置,包括位置、大小、重复方式等
 ```ts title="src\pages\posts[…slug].astro" {3-21,26-78}
 	offset = offset - offset % 4;
 	document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
@@ -300,11 +300,11 @@ pinned: z.boolean().optional().default(false),
                     <p class="text-black/80 dark:text-white/80 text-sm">这篇文章是否对你有帮助？</p>
                 </div>
                 <div class="flex gap-2">
-                    <a href="/posts/pin/" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--btn-regular-bg)] hover:bg-[var(--btn-regular-bg-hover)] active:bg-[var(--btn-regular-bg-active)] text-[var(--btn-content)] text-xs font-medium transition-all active:scale-95">
+                    <a href="路径" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--btn-regular-bg)] hover:bg-[var(--btn-regular-bg-hover)] active:bg-[var(--btn-regular-bg-active)] text-[var(--btn-content)] text-xs font-medium transition-all active:scale-95">
                         <Icon name="material-symbols:contact-mail-outline" class="text-[0.875rem] group-hover:scale-110 transition-transform"></Icon>
                         联系
                     </a>
-                    <a href="/donate/" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--primary)] hover:bg-[oklch(0.65_0.16_var(--hue))] active:bg-[oklch(0.60_0.18_var(--hue))] text-white dark:text-black/80 text-xs font-medium transition-all active:scale-95">
+                    <a href="路径" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--primary)] hover:bg-[oklch(0.65_0.16_var(--hue))] active:bg-[oklch(0.60_0.18_var(--hue))] text-white dark:text-black/80 text-xs font-medium transition-all active:scale-95">
                         <Icon name="material-symbols:favorite-outline" class="text-[0.875rem] group-hover:scale-110 transition-transform"></Icon>
                         赞助
                  </a>
