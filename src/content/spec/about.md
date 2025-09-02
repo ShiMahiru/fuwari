@@ -4,9 +4,13 @@
 
 ## 概述
 
-本网站是一个静态网站，采用`Fuwari框架`，并使用MIT协议开源于`Github`，我们非常重视您的隐私。本隐私政策说明了当您访问我们的网站时，可能收集、使用和披露您信息的方式。
+本网站是一个静态网站，采用`Fuwari框架`，并使用`MIT`协议开源于`Github`，我们非常重视您的隐私。本隐私政策说明了当您访问我们的网站时，可能收集、使用和披露您信息的方式。
+
+感谢 [二叉树树](2x.nz) 开源和教程为本项目提供了重要的灵感/基础/组件支持
 
 ::github{repo="saicaca/fuwari"}
+
+::github{repo="afoim/fuwari"}
 
 ## 网站性质
 
@@ -33,7 +37,17 @@
 - 用途：网站托管、部署服务
 - 隐私政策：[Netlify 隐私政策](https://www.netlify.com/privacy/)
 
+**Vercel**
+- 可能收集的信息：IP 地址、访问日志、性能数据
+- 用途：网站托管、部署服务
+- 隐私政策：[Vercel 隐私政策](https://vercel.com/legal/privacy-policy)
+
 ### 分析和统计服务
+
+**Google Analytics（谷歌分析）**
+- 可能收集的信息：匿名化的用户数据、页面浏览量、会话时长、地理位置
+- 用途：网站性能分析、用户行为分析
+- 隐私政策：[Google 隐私政策](https://policies.google.com/privacy)
 
 **Umami 分析**
 - 可能收集的信息：页面浏览量、访问来源、设备类型（匿名化处理）
