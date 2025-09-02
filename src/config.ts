@@ -13,7 +13,7 @@ export const siteConfig: SiteConfig = {
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
 		hue: 360, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
-		fixed: false, // Hide the theme color picker for visitors
+		fixed: true, // Hide the theme color picker for visitors
 	},
 	banner: {
 		enable: false,
@@ -76,6 +76,11 @@ export const profileConfig: ProfileConfig = {
 	name: "ShiMahiru",
 	bio: "我知道你为了什么而来",
 	links: [
+		{
+			name: "",
+			icon: "fa6-solid:telegram",
+			url: "https://t.me/ShiMahiru",
+		},
 		{
 			name: "",
 			icon: "fa6-solid:envelope",
