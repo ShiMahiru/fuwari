@@ -53,6 +53,16 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Home,
 		LinkPreset.Archive,
 		LinkPreset.About,
+		{
+			name: "友链",
+			url: "/friends/", // Internal links should not include the base path, as it is automatically added
+			external: false, // Show an external link icon and will open in a new tab
+		},
+		{
+			name: "赞助",
+			url: "/donate/", // Internal links should not include the base path, as it is automatically added
+			external: false, // Show an external link icon and will open in a new tab
+		},
       {
 			name: "统计",
 			url: "https://cloud.umami.is/share/UkL9T8i5y8H8kRyq/www.yuln.fun", // Internal links should not include the base path, as it is automatically added
