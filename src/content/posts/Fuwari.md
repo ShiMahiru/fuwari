@@ -100,11 +100,11 @@ import Giscus from "../../components/misc/Giscus.astro";
 ```
 
 ## 背景图及透明卡片
-### 1.请修改高亮部分内代码
-### 2.在SiteConfig类型中添加background配置选项
-### 3.新增透明背景颜色变量—card-bg-transparent和—float-panel-bg-transparent
-### 4.实现背景图片加载检测及卡片透明效果切换
-### 5.添加背景图片样式配置,包括位置、大小、重复方式等
+1. 请修改高亮部分内代码
+2. 在SiteConfig类型中添加background配置选项
+3. 新增透明背景颜色变量—card-bg-transparent和—float-panel-bg-transparent
+4. 实现背景图片加载检测及卡片透明效果切换
+5. 添加背景图片样式配置,包括位置、大小、重复方式等
 ```ts title="src\pages\posts[…slug].astro" {3-21,26-78}
 	offset = offset - offset % 4;
 	document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
