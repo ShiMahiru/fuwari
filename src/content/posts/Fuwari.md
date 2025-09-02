@@ -4,22 +4,26 @@ description: 感谢afoim开源的部分代码跟各位大佬教程
 published: 2025-09-01
 tags:
 - 博客
-title: 关于我的Fuwari框架博客魔改
+title: 关于我的Fuwari博客修改
 ---
 
-# 功能实现
-## 1.自适应主题Giscus评论
-## 2.背景图及透明卡片
-## 3.背景图及透明卡片
-## 4.文章帮助反馈
-## 5.右上角友链+赞助+统计
+## 功能实现
+- 1.自适应主题Giscus评论
+- 2.背景图及透明卡片
+- 3.背景图及透明卡片
+- 4.文章帮助反馈
+- 5.右上角友链+赞助+统计
 
->若找不到建议搜索关键词 加高亮部分
+>若修改找不到建议搜索关键词 修改高亮部分
+>关于路径文件在哪里？ps:复制最左边
+>至于什么时候更新这篇文章，ps:跟随本站同步更新
 
+---
 ## 自适应主题Giscus评论
 ```ts title="src\components\misc/Giscus.astro"
 import Giscus from "../../components/misc/Giscus.astro";
 ```
+---
 
 ## 创建写入修改参数
 ```ts title="src\components\misc/Giscus.astro"
@@ -107,6 +111,7 @@ import Giscus from "../../components/misc/Giscus.astro";
   });
 </script>
 ```
+---
 
 ## 背景图及透明卡片
 - 检测背景图片加载状态，成功加载后启用透明效果
@@ -191,7 +196,6 @@ import Giscus from "../../components/misc/Giscus.astro";
 
 </style>  <!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why -->
 ```
-
 ```ts title="src/types/config.ts"
  background: {
    enable: boolean;
@@ -203,12 +207,10 @@ import Giscus from "../../components/misc/Giscus.astro";
    opacity?: number;
 };
 ```
-
 ```ts title="src/styles/variables.styl"
 --card-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
 --float-panel-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
 ```
-
 ```ts title="src/config.ts"
     background: {
     enable: true, // Enable background image
@@ -220,6 +222,7 @@ import Giscus from "../../components/misc/Giscus.astro";
     opacity: 0.5, // Background opacity (0-1)
   },
 ```
+---
 
 ## 加文章置顶
 ```ts title="src/utils/content-utils.ts" {3-7}
@@ -237,11 +240,9 @@ const sorted = allBlogPosts.sort((a, b) => {
 	return sorted;
 }
 ```
-
 ```text title="src/components/PostCard.astro"
 const isPinned = entry.data.pinned === true;
 ```
-
 ```astro title="src/components/PostCard.astro" {8-12}
     class="transition group w-full block font-bold mb-3 text-3xl text-90
     hover:text-[var(--primary)] dark:hover:text-[var(--primary)]
@@ -258,7 +259,6 @@ const isPinned = entry.data.pinned === true;
     
     {title}
 ```
-
 ```astro title="src/pages/posts/[...slug].astro" {12-16}
 
 <!-- title -->
@@ -282,10 +282,10 @@ const isPinned = entry.data.pinned === true;
     </div>
 </div>
 ```
-
 ```text title="src/content/config.ts"
 pinned: z.boolean().optional().default(false),
 ```
+---
 
 ## 文章帮助反馈
 ```astro title="src/pages/posts/[...slug].astro" {3-21}
@@ -313,6 +313,7 @@ pinned: z.boolean().optional().default(false),
     </div>
 </div>
 ```
+---
 
 # 右上角友链+赞助+统计
 ```ts title="src\config.ts" {2-4}
@@ -344,6 +345,7 @@ export const navBarConfig: NavBarConfig = {
 	],
 };
 ```
+---
 
 ## 创建赞助文件写入修改参数
 ```ts title="/pages/friends.astro"
@@ -525,6 +527,7 @@ function copyToClipboard(text) {
 }
 </script>
 ```
+---
 
 ## 创建友链文件写入修改参数
 ```ts title="src/pages/donate.astro"
@@ -571,15 +574,14 @@ import { Icon } from "astro-icon/components";
 }
 </style>
 ```
-
-## 然后赞助把二维码放在/donate/也可以其他地方随便
-
+---
+### 然后赞助把二维码放在/donate/也可以其他地方随便
+---
 ## 配置umami
 ```ts title="src/layout/Layout.astro" {3}
 <link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${Astro.site}rss.xml`}/>
 
 		<script defer src="https://us.umami.is//script.js" data-website-id="xxxxxxxxxxxxxxxx"></script>
 ```
-
-## 这个去 [umami](https://us.umami.is/) 注册设置添加既可
+### 这个去 [umami](https://us.umami.is/) 注册设置添加既可
 
