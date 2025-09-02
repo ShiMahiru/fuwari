@@ -78,11 +78,6 @@ export const profileConfig: ProfileConfig = {
 	links: [
 		{
 			name: "",
-			icon: "fa6-solid:telegram",
-			url: "https://t.me/ShiMahiru",
-		},
-		{
-			name: "",
 			icon: "fa6-solid:envelope",
 			url: "mailto:242531778@qq.com",
 		},
