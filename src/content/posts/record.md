@@ -9,6 +9,33 @@ tags:
 - 记录
 title: 记录
 ---
+
+# Vercel静态托管
+
+推荐IP：43.174.150.150
+
+---
+
+# 实用网站
+
+### 在线文件格式转换器
+- [Freeconvert](https://www.freeconvert.com/zh)
+- [Convertio](https://convertio.co/zh/)
+
+[Markdown官方教程](https://markdown.com.cn/)
+
+[MT论坛](https://bbs.binmt.cc/)
+
+[草料二维码生成器](https://cli.im/)
+
+[以图识番](https://www.animetrace.com/)
+
+[Cloudflare](https://dash.cloudflare.com/)
+
+[ITDOG](https://www.itdog.cn/)
+
+---
+
 # 流量卡办理推荐
 
 ### 广电树荫卡
@@ -23,7 +50,7 @@ title: 记录
 - 仅支持原套餐`120G通用流量`转至次月
 - 到期可续(长期套餐)
 - 很推荐这个套餐唉
->[点击这里办理哦](https://h5.gantanhao.com/url?value=LdZhf1757005062360)
+- [点击这里办理哦](https://h5.gantanhao.com/url?value=LdZhf1757005062360)
 
 ### 广电青铜卡
 | 项目 | 详情 |
@@ -35,7 +62,7 @@ title: 记录
 ### 注意事项
 - 仅支持原套餐`120G通用流量`转至次月
 - 到期根据运营商短信续约(长期套餐)
-*[点击这里办理哦]*(https://h5.gantanhao.com/url?value=6kDCT1757007305862)
+- [点击这里办理哦](https://h5.gantanhao.com/url?value=6kDCT1757007305862)
 
 ### 广电黄金卡(青铜卡Pro)
 | 项目 | 详情 |
@@ -49,7 +76,7 @@ title: 记录
 - 到期根据运营商短信续约(长期套餐)
 - 流量优先级顺序为:定向流量→结转流量→赠送月
 包→通用流量
-*[点击这里办理哦]*(https://h5.gantanhao.com/url?value=X73bn1757007290718)
+- [点击这里办理哦](https://h5.gantanhao.com/url?value=X73bn1757007290718)
 
 订单查询: [号卡状态](https://h5.gantanhao.com/orderlist?timestamp=1757008064282&from=3@C@@DprFFsAA;C@?C;BCqr;GGrs;AAEEBCst@rBB3@C@@)
 
@@ -58,21 +85,5 @@ title: 记录
 ps: 广电偏远地区网速较慢
 
 ps：暂时电信，移动，联通卡没啥大流量的，只发省内就不推荐了，想要查看更多套餐的自己移步[小店](https://h5.gantanhao.com/url?value=S8Cn41757010042117)自行查看
-
----
-
-# Vercel静态托管
-
-推荐IP：43.174.150.150
-
----
-
-# 实用网站
-
-FreeConvert文件格式转换器
-https://www.freeconvert.com/zh
-
-Markdown官方教程
-https://markdown.com.cn/
 
 ---

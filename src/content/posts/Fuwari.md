@@ -6,28 +6,23 @@ tags:
 - 博客
 title: 关于我的Fuwari博客修改
 ---
-
 ## 功能实现
 - 1.自适应主题Giscus评论
 - 2.背景图及透明卡片
-- 3.背景图及透明卡片
+- 3.文章置顶
 - 4.文章帮助反馈
 - 5.右上角友链+赞助+统计
-
-> 若修改找不到建议搜索关键词 修改高亮部分
+> 若修改找不到建议搜索关键词，修改高亮部分
 > 
 > 关于路径文件在哪里？ps:复制最左边
 > 
 > 至于什么时候更新这篇文章，ps:跟随本站同步更新
 
----
-## 自适应主题Giscus评论
+### 1.自适应主题Giscus评论
 ```ts title="src\components\misc/Giscus.astro"
 import Giscus from "../../components/misc/Giscus.astro";
 ```
----
-
-## 创建写入修改参数
+### 创建写入修改参数
 ```ts title="src\components\misc/Giscus.astro"
 ---
   repo = "123456" // 在此输入用户名/仓库名
@@ -113,9 +108,7 @@ import Giscus from "../../components/misc/Giscus.astro";
   });
 </script>
 ```
----
-
-## 背景图及透明卡片
+### 2.背景图及透明卡片
 - 检测背景图片加载状态，成功加载后启用透明效果
 ```ts title="src\pages\posts[…slug].astro" {3-21,26-78}
 	offset = offset - offset % 4;
@@ -224,9 +217,7 @@ import Giscus from "../../components/misc/Giscus.astro";
     opacity: 0.5, // Background opacity (0-1)
   },
 ```
----
-
-## 加文章置顶
+### 3.加文章置顶
 ```ts title="src/utils/content-utils.ts" {3-7}
 const sorted = allBlogPosts.sort((a, b) => {
 
@@ -287,9 +278,7 @@ const isPinned = entry.data.pinned === true;
 ```text title="src/content/config.ts"
 pinned: z.boolean().optional().default(false),
 ```
----
-
-## 文章帮助反馈
+### 4.文章帮助反馈
 ```astro title="src/pages/posts/[...slug].astro" {3-21}
         {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
@@ -315,9 +304,7 @@ pinned: z.boolean().optional().default(false),
     </div>
 </div>
 ```
----
-
-# 右上角友链+赞助+统计
+# 5.右上角友链+赞助+统计
 ```ts title="src\config.ts" {2-4}
 export const navBarConfig: NavBarConfig = {
 	links: [
@@ -347,9 +334,7 @@ export const navBarConfig: NavBarConfig = {
 	],
 };
 ```
----
-
-## 创建赞助文件写入修改参数
+### 创建赞助文件写入修改参数
 ```ts title="/pages/friends.astro"
 ---
 import MainGridLayout from "@layouts/MainGridLayout.astro";
@@ -529,9 +514,7 @@ function copyToClipboard(text) {
 }
 </script>
 ```
----
-
-## 创建友链文件写入修改参数
+### 创建友链文件写入修改参数
 ```ts title="src/pages/donate.astro"
 ---
 import MainGridLayout from "@layouts/MainGridLayout.astro";
@@ -576,14 +559,11 @@ import { Icon } from "astro-icon/components";
 }
 </style>
 ```
----
-### 然后赞助把二维码放在/donate/也可以其他地方随便
----
-## 配置umami
+然后赞助把二维码放在/donate/也可以其他地方随便
+### 配置umami
 ```ts title="src/layout/Layout.astro" {3}
 <link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${Astro.site}rss.xml`}/>
 
 		<script defer src="https://us.umami.is//script.js" data-website-id="xxxxxxxxxxxxxxxx"></script>
 ```
-### 这个去 [umami](https://us.umami.is/) 注册设置添加既可
-
+这个去 [umami](https://us.umami.is/) 注册设置添加既可
