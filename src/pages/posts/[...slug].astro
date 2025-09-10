@@ -131,9 +131,10 @@ const jsonLd = {
                         <Icon name="material-symbols:favorite-outline" class="text-[0.875rem] group-hover:scale-110 transition-transform"></Icon>
                         赞助
                  </a>
-          </div>
-
+       </div> 
+</div>
             {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
+
 
             <!-- Giscus 评论区 -->
         <script src="https://giscus.app/client.js"
@@ -152,9 +153,7 @@ const jsonLd = {
                 crossorigin="anonymous"
                 async>
         </script>
-
-        </div>
-    </div>
+ <br>
 
     <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full">
         <a href={entry.data.nextSlug ? getPostUrlBySlug(entry.data.nextSlug) : "#"}
