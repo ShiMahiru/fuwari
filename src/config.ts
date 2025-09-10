@@ -79,7 +79,7 @@ export const profileConfig: ProfileConfig = {
 	bio: "我知道你为了什么而来",
 	links: [
 		{
-			name: "邮箱",
+			name: "",
 			icon: "fa6-solid:envelope",
 			url: "mailto:242531778@qq.com",
 		},
