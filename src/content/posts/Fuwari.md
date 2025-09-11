@@ -13,13 +13,13 @@ title: 关于我的Fuwari博客修改
 - 3.文章帮助反馈
 - 4.右上角友链+赞助+统计
 - 5.删除切换㳀色/深色模式
-> 若修改找不到建议搜索关键词，修改高亮部分
+> 若修改找不到建议搜索关键词，ps:修改高亮部分
 > 
 > 关于路径文件在哪里？ps:复制最左边
 > 
 > 至于什么时候更新这篇文章，ps:跟随本站同步更新
 
-# Giscus评论区
+## Giscus评论区
 建议放Giscus的新开干净的公开仓库 https://github.com/new
 
 在仓库设置中 启用 Discussion 功能
@@ -33,123 +33,123 @@ title: 关于我的Fuwari博客修改
 
 最后将复制JS放入`src/pages/posts/[...slug].astro`
 
-# 1.背景图及透明卡片
+## 1.背景图及透明卡片
 - 检测背景图片加载状态，成功加载后启用透明效果
 ```ts title="/src/layouts/Layout.astro"
 	document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
 
-+    const bgUrl = getComputedStyle(document.documentElement).getPropertyValue('--bg-url').trim();
-+    const bgEnable = getComputedStyle(document.documentElement).getPropertyValue('--bg-enable').trim();
-+    if (bgUrl && bgUrl !== 'none' && bgEnable === '1') {
-+    const img = new Image();
-+    const urlMatch = bgUrl.match(/url\(["']?([^"')]+)["']?\)/);
-+    if (urlMatch) {
-+      img.onload = function() {
-+        document.body.classList.add('bg-loaded');
-+        document.documentElement.style.setProperty('--card-bg', 'var(--card-bg-transparent)');
-+        document.documentElement.style.setProperty('--float-panel-bg', 'var(--float-panel-bg-transparent)');
-+      };
-+      img.onerror = function() {
-+        console.warn('Background image failed to load, keeping cards opaque');
-+      };
-+      img.src = urlMatch[1];
-+    }
-+    }
+    const bgUrl = getComputedStyle(document.documentElement).getPropertyValue('--bg-url').trim();
+    const bgEnable = getComputedStyle(document.documentElement).getPropertyValue('--bg-enable').trim();
+    if (bgUrl && bgUrl !== 'none' && bgEnable === '1') {
+    const img = new Image();
+    const urlMatch = bgUrl.match(/url\(["']?([^"')]+)["']?\)/);
+    if (urlMatch) {
+      img.onload = function() {
+        document.body.classList.add('bg-loaded');
+        document.documentElement.style.setProperty('--card-bg', 'var(--card-bg-transparent)');
+        document.documentElement.style.setProperty('--float-panel-bg', 'var(--float-panel-bg-transparent)');
+      };
+      img.onerror = function() {
+        console.warn('Background image failed to load, keeping cards opaque');
+      };
+      img.src = urlMatch[1];
+    }
+    }
 
 </script>
 <style define:vars={{
 	configHue,
 	'page-width': `${PAGE_WIDTH}rem`,
 
-+	'bg-url': siteConfig.background.src ? `url(${siteConfig.background.src})` : 'none',
-+	'bg-enable': siteConfig.background.enable ? '1' : '0',
-+	'bg-position': siteConfig.background.position || 'center',
-+	'bg-size': siteConfig.background.size || 'cover',
-+	'bg-repeat': siteConfig.background.repeat || 'no-repeat',
-+	'bg-attachment': siteConfig.background.attachment || 'fixed',
-+	'bg-opacity': (siteConfig.background.opacity || 0.3).toString()
-+ }}>
-+	:root {
-+		--bg-url: var(--bg-url);
-+		--bg-enable: var(--bg-enable);
-+		--bg-position: var(--bg-position);
-+		--bg-size: var(--bg-size);
-+		--bg-repeat: var(--bg-repeat);
-+		--bg-attachment: var(--bg-attachment);
-+		--bg-opacity: var(--bg-opacity);
-+	}
-+	
-+	/* Background image configuration */
-+	body {
-+		--bg-url: var(--bg-url);
-+		--bg-enable: var(--bg-enable);
-+		--bg-position: var(--bg-position);
-+		--bg-size: var(--bg-size);
-+		--bg-repeat: var(--bg-repeat);
-+		--bg-attachment: var(--bg-attachment);
-+		--bg-opacity: var(--bg-opacity);
-+	}
-+	
-+	body::before {
-+		content: '' !important;
-+		position: fixed !important;
-+		top: 0 !important;
-+		left: 0 !important;
-+		width: 100% !important;
-+		height: 100% !important;
-+		background-image: var(--bg-url) !important;
-+		background-position: var(--bg-position) !important;
-+		background-size: var(--bg-size) !important;
-+		background-repeat: var(--bg-repeat) !important;
-+		background-attachment: var(--bg-attachment) !important;
-+		opacity: 0 !important;
-+		pointer-events: none !important;
-+		z-index: -1 !important;
-+		display: block !important;
-+		transition: opacity 0.3s ease-in-out !important;
-+	}
-+	
-+	body.bg-loaded::before {
-+		opacity: calc(var(--bg-opacity) * var(--bg-enable)) !important;
-+	}
+	'bg-url': siteConfig.background.src ? `url(${siteConfig.background.src})` : 'none',
+	'bg-enable': siteConfig.background.enable ? '1' : '0',
+	'bg-position': siteConfig.background.position || 'center',
+	'bg-size': siteConfig.background.size || 'cover',
+	'bg-repeat': siteConfig.background.repeat || 'no-repeat',
+	'bg-attachment': siteConfig.background.attachment || 'fixed',
+	'bg-opacity': (siteConfig.background.opacity || 0.3).toString()
+ }}>
+	:root {
+		--bg-url: var(--bg-url);
+		--bg-enable: var(--bg-enable);
+		--bg-position: var(--bg-position);
+		--bg-size: var(--bg-size);
+		--bg-repeat: var(--bg-repeat);
+		--bg-attachment: var(--bg-attachment);
+		--bg-opacity: var(--bg-opacity);
+	}
+	
+	/* Background image configuration */
+	body {
+		--bg-url: var(--bg-url);
+		--bg-enable: var(--bg-enable);
+		--bg-position: var(--bg-position);
+		--bg-size: var(--bg-size);
+		--bg-repeat: var(--bg-repeat);
+		--bg-attachment: var(--bg-attachment);
+		--bg-opacity: var(--bg-opacity);
+	}
+	
+	body::before {
+		content: '' !important;
+		position: fixed !important;
+		top: 0 !important;
+		left: 0 !important;
+		width: 100% !important;
+		height: 100% !important;
+		background-image: var(--bg-url) !important;
+		background-position: var(--bg-position) !important;
+		background-size: var(--bg-size) !important;
+		background-repeat: var(--bg-repeat) !important;
+		background-attachment: var(--bg-attachment) !important;
+		opacity: 0 !important;
+		pointer-events: none !important;
+		z-index: -1 !important;
+		display: block !important;
+		transition: opacity 0.3s ease-in-out !important;
+	}
+	
+	body.bg-loaded::before {
+		opacity: calc(var(--bg-opacity) * var(--bg-enable)) !important;
+	}
 
 </style>  <!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why -->
 ```
 ```ts title="src/types/config.ts"
-+ background: {
-+   enable: boolean;
-+   src: string;
-+   position?: "top" | "center" | "bottom";
-+   size?: "cover" | "contain" | "auto";
-+   repeat?: "no-repeat" | "repeat" | "repeat-x" | "repeat-y";
-+   attachment?: "fixed" | "scroll" | "local";
-+   opacity?: number;
-+ };
+ background: {
+   enable: boolean;
+   src: string;
+   position?: "top" | "center" | "bottom";
+   size?: "cover" | "contain" | "auto";
+   repeat?: "no-repeat" | "repeat" | "repeat-x" | "repeat-y";
+   attachment?: "fixed" | "scroll" | "local";
+   opacity?: number;
+ };
 ```
 ```ts title="src/styles/variables.styl"
-+  --card-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
-+  --float-panel-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
+  --card-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
+  --float-panel-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
 ```
 ```ts title="src/config.ts"
-+    background: {
-+    enable: true, // Enable background image
-+    src: "https://pic.2x.nz/?img=h", // Background image URL (supports HTTPS)
-+    position: "center", // Background position: 'top', 'center', 'bottom'
-+    size: "cover", // Background size: 'cover', 'contain', 'auto'
-+    repeat: "no-repeat", // Background repeat: 'no-repeat', 'repeat', 'repeat-x', 'repeat-y'
-+    attachment: "fixed", // Background attachment: 'fixed', 'scroll', 'local'
-+    opacity: 0.5, // Background opacity (0-1)
-+  },
+    background: {
+    enable: true, // Enable background image
+    src: "https://pic.2x.nz/?img=h", // Background image URL (supports HTTPS)
+    position: "center", // Background position: 'top', 'center', 'bottom'
+    size: "cover", // Background size: 'cover', 'contain', 'auto'
+    repeat: "no-repeat", // Background repeat: 'no-repeat', 'repeat', 'repeat-x', 'repeat-y'
+    attachment: "fixed", // Background attachment: 'fixed', 'scroll', 'local'
+    opacity: 0.5, // Background opacity (0-1)
+  },
 ```
-# 2.加文章置顶
+## 2.加文章置顶
 ```ts title="src/utils/content-utils.ts"
 const sorted = allBlogPosts.sort((a, b) => {
 
-+		// 如果一个是置顶一个不是置顶，置顶的排在前面
-+		if (a.data.pinned !== b.data.pinned) {
-+			return a.data.pinned ? -1 : 1;
-+		}
-+		// 都是置顶或都不是置顶，按发布日期时间排序（包含小时分钟秒）
+		// 如果一个是置顶一个不是置顶，置顶的排在前面
+		if (a.data.pinned !== b.data.pinned) {
+			return a.data.pinned ? -1 : 1;
+		}
+		// 都是置顶或都不是置顶，按发布日期时间排序（包含小时分钟秒）
 		const dateA = new Date(a.data.published);
 		const dateB = new Date(b.data.published);
 		return dateA > dateB ? -1 : 1;
@@ -158,27 +158,27 @@ const sorted = allBlogPosts.sort((a, b) => {
 }
 ```
 ```text title="src/components/PostCard.astro"
-+  const isPinned = entry.data.pinned === true;
+  const isPinned = entry.data.pinned === true;
 ```
 ```astro title="src/components/PostCard.astro"
     before:absolute before:top-[35px] before:left-[18px] before:hidden md:before:block
     ">
     
-+    {isPinned && (
-+    <span class="inline-flex items-center mr-2 px-2 py-0.5 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
-+        <Icon name="material-symbols:push-pin" class="mr-1 text-base" /> 置顶
-+    </span>
-+    )}
+    {isPinned && (
+    <span class="inline-flex items-center mr-2 px-2 py-0.5 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
+        <Icon name="material-symbols:push-pin" class="mr-1 text-base" /> 置顶
+    </span>
+    )}
 ```
 ```astro title="src/pages/posts/[...slug].astro" {12-16}
         before:absolute before:top-[0.75rem] before:left-[-1.125rem]
     ">
 
-+            {entry.data.pinned && (
-+            <span class="inline-flex items-center mr-3 px-2.5 py-1 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
-+                <Icon name="material-symbols:push-pin" class="mr-1.5 text-base" /> 置顶
-+            </span>
-+        )}
+            {entry.data.pinned && (
+            <span class="inline-flex items-center mr-3 px-2.5 py-1 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
+                <Icon name="material-symbols:push-pin" class="mr-1.5 text-base" /> 置顶
+            </span>
+        )}
 
         <span>{entry.data.title}</span>
     </div>
@@ -187,63 +187,63 @@ const sorted = allBlogPosts.sort((a, b) => {
 ```text title="src/content/config.ts"
 pinned: z.boolean().optional().default(false),
 ```
-# 3.文章帮助反馈
+## 3.文章帮助反馈
 ```astro title="src/pages/posts/[...slug].astro" {3-21}
         {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
-+        <!-- 文章帮助反馈区域 -->
-+        <div class="mb-4 p-3 rounded-lg bg-[var(--license-block-bg)] border border-[var(--line-divider)] onload-animation">
-+            <div class="flex items-center justify-between">
-+                <div class="flex items-center gap-2">
-+                    <div class="h-4 w-4 rounded bg-[var(--primary)] flex items-center justify-center">
-+                        <Icon name="material-symbols:help-outline" class="text-[0.75rem] text-white dark:text-black/70"></Icon>
-+                    </div>
-+                    <p class="text-black/80 dark:text-white/80 text-sm">这篇文章是否对你有帮助？</p>
-+                </div>
-+                <div class="flex gap-2">
-+                    <a href="路径" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--btn-regular-bg)] hover:bg-[var(--btn-regular-bg-hover)] active:bg-[var(--btn-regular-bg-active)] text-[var(--btn-content)] text-xs font-medium transition-all active:scale-95">
-+                        <Icon name="material-symbols:contact-mail-outline" class="text-[0.875rem] group-hover:scale-110 transition-transform"></Icon>
-+                        联系
-+                    </a>
-+                    <a href="路径" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--primary)] hover:bg-[oklch(0.65_0.16_var(--hue))] active:bg-[oklch(0.60_0.18_var(--hue))] text-white dark:text-black/80 text-xs font-medium transition-all active:scale-95">
-+                        <Icon name="material-symbols:favorite-outline" class="text-[0.875rem] group-hover:scale-110 transition-transform"></Icon>
-+                        赞助
-+                 </a>
-+          </div>
-+    </div>
-+ </div>
+        <!-- 文章帮助反馈区域 -->
+        <div class="mb-4 p-3 rounded-lg bg-[var(--license-block-bg)] border border-[var(--line-divider)] onload-animation">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="h-4 w-4 rounded bg-[var(--primary)] flex items-center justify-center">
+                        <Icon name="material-symbols:help-outline" class="text-[0.75rem] text-white dark:text-black/70"></Icon>
+                    </div>
+                    <p class="text-black/80 dark:text-white/80 text-sm">这篇文章是否对你有帮助？</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="路径" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--btn-regular-bg)] hover:bg-[var(--btn-regular-bg-hover)] active:bg-[var(--btn-regular-bg-active)] text-[var(--btn-content)] text-xs font-medium transition-all active:scale-95">
+                        <Icon name="material-symbols:contact-mail-outline" class="text-[0.875rem] group-hover:scale-110 transition-transform"></Icon>
+                        联系
+                    </a>
+                    <a href="路径" class="group flex items-center gap-1 px-3 py-1.5 rounded bg-[var(--primary)] hover:bg-[oklch(0.65_0.16_var(--hue))] active:bg-[oklch(0.60_0.18_var(--hue))] text-white dark:text-black/80 text-xs font-medium transition-all active:scale-95">
+                        <Icon name="material-symbols:favorite-outline" class="text-[0.875rem] group-hover:scale-110 transition-transform"></Icon>
+                        赞助
+                 </a>
+          </div>
+    </div>
+ </div>
 ```
-# 4.右上角友链+赞助+统计
+## 4.右上角友链+赞助+统计
 ```ts title="src\config.ts" {2-4}
 export const navBarConfig: NavBarConfig = {
 	links: [
 		LinkPreset.Home,
 		LinkPreset.Archive,
 		LinkPreset.About,
-+		{
-+			name: "友链",
-+			url: "/friends/", // Internal links should not include the base path, as it is automatically added
-+			external: false, // Show an external link icon and will open in a new tab
-+		},
-+		{
-+			name: "赞助",
-+			url: "/donate/", // Internal links should not include the base path, as it is automatically added
-+			external: false, // Show an external link icon and will open in a new tab
-+		},
-+		{
-+			name: "统计",
-+			url: "https://us.umami.is/share/xxxxxxxxx", // Internal links should not include the base path, as it is automatically added
-+			external: true, // Show an external link icon and will open in a new tab
-+		},
-+		{
-+			name: "GitHub",
-+			url: "https://github.com/saicaca/fuwari", // Internal links should not include the base path, as it is automatically added
-+			external: true, // Show an external link icon and will open in a new tab
+		{
+			name: "友链",
+			url: "/friends/", // Internal links should not include the base path, as it is automatically added
+			external: false, // Show an external link icon and will open in a new tab
+		},
+		{
+			name: "赞助",
+			url: "/donate/", // Internal links should not include the base path, as it is automatically added
+			external: false, // Show an external link icon and will open in a new tab
+		},
+		{
+			name: "统计",
+			url: "https://us.umami.is/share/xxxxxxxxx", // Internal links should not include the base path, as it is automatically added
+			external: true, // Show an external link icon and will open in a new tab
+		},
+		{
+			name: "GitHub",
+			url: "https://github.com/saicaca/fuwari", // Internal links should not include the base path, as it is automatically added
+			external: true, // Show an external link icon and will open in a new tab
 +		},
 	],
 };
 ```
-# 创建赞助文件写入修改参数
+## 创建赞助文件写入修改参数
 ```ts title="/pages/friends.astro"
 ---
 import MainGridLayout from "@layouts/MainGridLayout.astro";
@@ -477,35 +477,35 @@ import { Icon } from "astro-icon/components";
 ```
 这个去 [umami](https://us.umami.is/) 注册设置添加既可
 
-# 5.删除切换㳀色/深色模式
+## 5.删除切换㳀色/深色模式
 
 /src/components/LightDarkSwitch.svelte文件
 
 删除/src/components/Navbar.astro部分
-```
+```diff
 - import LightDarkSwitch from "./LightDarkSwitch.svelte";
 ```
-```
+```diff
 - <LightDarkSwitch client:only="svelte"></LightDarkSwitch>
 ```
-```
--  function switchTheme() {
--    if (localStorage.theme === 'dark') {
--        document.documentElement.classList.remove('dark');
--        localStorage.theme = 'light';
--    } else {
--        document.documentElement.classList.add('dark');
--        localStorage.theme = 'dark';
--    }
--   }
+```diff
+  function switchTheme() {
+    if (localStorage.theme === 'dark') {
+        document.documentElement.classList.remove('dark');
+        localStorage.theme = 'light';
+    } else {
+        document.documentElement.classList.add('dark');
+        localStorage.theme = 'dark';
+    }
+   }
 
 function loadButtonScript() {
--    let switchBtn = document.getElementById("scheme-switch");
--    if (switchBtn) {
--        switchBtn.onclick = function () {
--            switchTheme()
--        };
--    }
+    let switchBtn = document.getElementById("scheme-switch");
+    if (switchBtn) {
+        switchBtn.onclick = function () {
+            switchTheme()
+        };
+    }
 
 let settingBtn = document.getElementById("display-settings-switch");
     if (settingBtn) {
@@ -531,37 +531,37 @@ let settingBtn = document.getElementById("display-settings-switch");
 loadButtonScript();
 </script>
 
--  {import.meta.env.PROD && <script is:inline define:vars={{scriptUrl: url('/pagefind/pagefind.js')}}>
--  async function loadPagefind() {
--    try {
+  {import.meta.env.PROD && <script is:inline define:vars={{scriptUrl: url('/pagefind/pagefind.js')}}>
+  async function loadPagefind() {
+    try {
         const response = await fetch(scriptUrl, { method: 'HEAD' });
--        if (!response.ok) {
+        if (!response.ok) {
             throw new Error(`Pagefind script not found: ${response.status}`);
--        }
+        }
 
--        const pagefind = await import(scriptUrl);
--
--        await pagefind.options({
--            excerptLength: 20
--        });
--
--        window.pagefind = pagefind;
--
--        document.dispatchEvent(new CustomEvent('pagefindready'));
+        const pagefind = await import(scriptUrl);
+
+        await pagefind.options({
+            excerptLength: 20
+        });
+
+        window.pagefind = pagefind;
+
+        document.dispatchEvent(new CustomEvent('pagefindready'));
         console.log('Pagefind loaded and initialized successfully, event dispatched.');
--    } catch (error) {
--        console.error('Failed to load Pagefind:', error);
--        window.pagefind = {
--            search: () => Promise.resolve({ results: [] }),
--            options: () => Promise.resolve(),
--        };
--        document.dispatchEvent(new CustomEvent('pagefindloaderror'));
--        console.log('Pagefind load error, event dispatched.');
--    }
--  }
--  if (document.readyState === 'loading') {
--    document.addEventListener('DOMContentLoaded', loadPagefind);
--   } else {
--    loadPagefind();
--  }
--  </script>}
+    } catch (error) {
+        console.error('Failed to load Pagefind:', error);
+        window.pagefind = {
+            search: () => Promise.resolve({ results: [] }),
+            options: () => Promise.resolve(),
+        };
+        document.dispatchEvent(new CustomEvent('pagefindloaderror'));
+        console.log('Pagefind load error, event dispatched.');
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadPagefind);
+   } else {
+    loadPagefind();
+  }
+  </script>}
