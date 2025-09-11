@@ -35,8 +35,8 @@ title: 关于我的Fuwari博客修改
 
 ## 1.背景图及透明卡片
 - 检测背景图片加载状态，成功加载后启用透明效果
-修改点: `/src/layouts/Layout.astro`
-```
+### 修改点 : `/src/layouts/Layout.astro`
+```diff
 	document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
 
 +    const bgUrl = getComputedStyle(document.documentElement).getPropertyValue('--bg-url').trim();
@@ -116,8 +116,8 @@ title: 关于我的Fuwari博客修改
 +
 </style>  <!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why -->
 ```
-修改点: `/src/types/config.ts`
-```
+### 修改点 : `/src/types/config.ts`
+```diff
 + background: {
 +   enable: boolean;++   src: string;
 +   position?: "top" | "center" | "bottom";
@@ -128,13 +128,13 @@ title: 关于我的Fuwari博客修改
 + };
 ```
 
-修改点: `/src/styles/variables.styl`
-```
+### 修改点 : `/src/styles/variables.styl`
+```diff
   --card-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
   --float-panel-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
 ```
-修改点: `/src/config.ts`
-```
+### 修改点 : `/src/config.ts`
+```diff
 +    background: {
 +    enable: true, // Enable background image
 +    src: "https://pic.2x.nz/?img=h", // Background image URL (supports HTTPS)
@@ -146,8 +146,8 @@ title: 关于我的Fuwari博客修改
 +  },
 ```
 ## 2.加文章置顶
-修改点: `/src/utils/content-utils.ts`
-```
+### 修改点 : `/src/utils/content-utils.ts`
+```diff
 const sorted = allBlogPosts.sort((a, b) => {
 
 +		// 如果一个是置顶一个不是置顶，置顶的排在前面
@@ -162,12 +162,12 @@ const sorted = allBlogPosts.sort((a, b) => {
 	return sorted;
 }
 ```
-修改点: `/src/components/PostCard.astro`
-```
+### 修改点 : `/src/components/PostCard.astro`
+```diff
   const isPinned = entry.data.pinned === true;
 ```
-修改点: `/src/components/PostCard.astro`
-```
+### 修改点 : `/src/components/PostCard.astro`
+```diff
     before:absolute before:top-[35px] before:left-[18px] before:hidden md:before:block
     ">
     
@@ -177,8 +177,8 @@ const sorted = allBlogPosts.sort((a, b) => {
 +    </span>
 +    )}
 ```
-修改点: `/src/pages/posts/[...slug].astro`
-```
+### 修改点 : `/src/pages/posts/[...slug].astro`
+```diff
         before:absolute before:top-[0.75rem] before:left-[-1.125rem]
     ">
 
@@ -188,13 +188,13 @@ const sorted = allBlogPosts.sort((a, b) => {
 +            </span>
 +        )}
 ```
-修改点: `/src/content/config.ts`
-```
+### 修改点 : `/src/content/config.ts`
+```diff
 pinned: z.boolean().optional().default(false),
 ```
 ## 3.文章帮助反馈
-修改点: `/src/pages/posts/[...slug].astro`
-```
+### 修改点 : `/src/pages/posts/[...slug].astro`
+```diff
         {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
 +        <!-- 文章帮助反馈区域 -->
@@ -220,8 +220,8 @@ pinned: z.boolean().optional().default(false),
 +   </div>
 ```
 ## 4.右上角友链+赞助+统计
-修改点: `/src\config.ts`
-```
+### 修改点 : `/src\config.ts`
+```diff
 export const navBarConfig: NavBarConfig = {
 	links: [
 		LinkPreset.Home,
@@ -477,8 +477,8 @@ import { Icon } from "astro-icon/components";
 ```
 然后赞助把二维码放在/donate/也可以其他地方随便
 # 配置umami
-修改点: `/src/layout/Layout.astro`
-```
+### 修改点 : `/src/layout/Layout.astro`
+```diff
 + <script defer src="https://us.umami.is//script.js" data-website-id="xxxxxxxxxxxxxxxx"></script>
 ```
 这个去 [umami](https://us.umami.is/) 注册设置添加既可
@@ -487,13 +487,13 @@ import { Icon } from "astro-icon/components";
 
 删掉`/src/components/LightDarkSwitch.svelte文件`
 
-修改点: `/src/components/Navbar.astro`
+### 修改点 : `/src/components/Navbar.astro`
 
-```
+```diff
 - import LightDarkSwitch from "./LightDarkSwitch.svelte";
 ```
 
-```
+```diff
 - <LightDarkSwitch client:only="svelte"></LightDarkSwitch>
 ```
 
