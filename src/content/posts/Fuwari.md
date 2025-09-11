@@ -470,10 +470,8 @@ import { Icon } from "astro-icon/components";
 ```
 然后赞助把二维码放在/donate/也可以其他地方随便
 # 配置umami
-```ts title="src/layout/Layout.astro"
-<link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${Astro.site}rss.xml`}/>
-
-+		<script defer src="https://us.umami.is//script.js" data-website-id="xxxxxxxxxxxxxxxx"></script>
+```ts diff="src/layout/Layout.astro"
++ <script defer src="https://us.umami.is//script.js" data-website-id="xxxxxxxxxxxxxxxx"></script>
 ```
 这个去 [umami](https://us.umami.is/) 注册设置添加既可
 
@@ -481,15 +479,14 @@ import { Icon } from "astro-icon/components";
 
 /src/components/LightDarkSwitch.svelte文件
 
-删除/src/components/Navbar.astro部分
-```diff
+```ts diff="src/components/Navbar.astro"
 - import LightDarkSwitch from "./LightDarkSwitch.svelte";
 ```
 ```diff
 - <LightDarkSwitch client:only="svelte"></LightDarkSwitch>
 ```
 ```diff
-  function switchTheme() {
+-  function switchTheme() {
     if (localStorage.theme === 'dark') {
         document.documentElement.classList.remove('dark');
         localStorage.theme = 'light';
