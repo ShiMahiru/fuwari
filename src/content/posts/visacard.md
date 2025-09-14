@@ -19,10 +19,10 @@ title: 如何拥有一张0月费0年费visa卡
 3. 纯净梯子
 
 ### 注册Bybit
-首先前往 `[Bybit](https://www.bybits.org/zh-MY/)` 注册Bybit
+首先前往 [Bybit](https://www.bybits.org/zh-MY/) 注册Bybit
 
 ### 完成个人身份认证 (KYC)
-建议在在谷歌商店下载Bybit应用手机上完成个人身份认证 (KYC)，不会可以看`[官方文档](https://www.bybits.org/zh-MY/help-center/article/How-to-Complete-Individual-KYC-Verification)`
+建议在在谷歌商店下载Bybit应用手机上完成个人身份认证 (KYC)，不会可以看[官方文档](https://www.bybits.org/zh-MY/help-center/article/How-to-Complete-Individual-KYC-Verification)
 
 ### 申请Card
 步骤金融→Card→获得卡片
