@@ -12,11 +12,8 @@ title: 关于我的Fuwari博客修改
 - 2.文章置顶
 - 3.文章帮助反馈
 - 4.右上角友链+赞助+统计
-> 若修改找不到建议搜索关键词，ps:修改高亮部分
-> 
-> 关于路径文件在哪里？ps:复制最左边
-> 
-> 至于什么时候更新这篇文章，ps:跟随本站同步更新
+> A: 至于什么时候更新这篇文章？
+> B: 跟随本站魔改同步更新
 
 ---
 ## 自适应Giscus评论区
@@ -31,27 +28,27 @@ title: 关于我的Fuwari博客修改
 - 特性:✅将评论框放在评论上方 ✅懒加载评论
 - 其他保持默认即可
 
-配置好之后，下方会自动生成对应JS代码，复制下来保存，接下来我们要修改自适应㳀色/深色，将刚刚复制的JS加上 `data-theme`这行就行了
+配置好之后，下方会自动生成对应JS代码，复制下来保存，接下来我们要修改自适应㳀色/深色，将刚刚复制的JS替换，在加上 `data-theme`这行
 
 2.在src/pages/posts目录下创建Giscus.svelte文件
 ```diff
 <section>
-    <script src="https://giscus.app/client.js"
-        data-repo="[在此输入仓库]"
-        data-repo-id="[在此输入仓库 ID]"
-        data-category="[在此输入分类名]"
-        data-category-id="[在此输入分类 ID]"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
+-    <script src="https://giscus.app/client.js"
+-        data-repo="[在此输入仓库]"
+-        data-repo-id="[在此输入仓库 ID]"
+-        data-category="[在此输入分类名]"
+-        data-category-id="[在此输入分类 ID]"
+-        data-mapping="pathname"
+-        data-strict="0"
+-        data-reactions-enabled="1"
+-        data-emit-metadata="0"
+-        data-input-position="bottom"
 +       data-theme={$mode === DARK_MODE ? 'dark' : 'light'}
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
-    </script>
+-        data-theme="preferred_color_scheme"
+-        data-lang="zh-CN"
+-        crossorigin="anonymous"
+-        async>
+-    </script>
 </section>
 
 <script>
@@ -188,8 +185,8 @@ window.onload = () => {
 
 ### 修改点 : `/src/styles/variables.styl`
 ```diff
-  --card-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
-  --float-panel-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
++  --card-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
++  --float-panel-bg-transparent: hsl(var(--hue) 10% 10% / 0.6);
 ```
 ### 修改点 : `/src/config.ts`
 ```diff
