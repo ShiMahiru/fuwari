@@ -25,8 +25,7 @@ title: 如何拥有一张0月费0年费visa卡
 建议在在谷歌商店下载Bybit应用手机上完成个人身份认证 (KYC)，不会可以看[官方文档](https://www.bybits.org/zh-MY/help-center/article/How-to-Complete-Individual-KYC-Verification)
 
 ### 申请Card
-步骤金融→Card→获得卡片
-地址证明要选择澳大利亚，因为Australia澳大利亚开卡方便。大概7个工作日会有邮箱提醒
+步骤金融→Card→获得卡片，地址证明要选择澳大利亚，因为Australia澳大利亚开卡方便。大概7个工作日会有邮箱提醒
 
 最后充入一定量的虚拟货币，可以在币安上买虚拟货币（ETH/USDT)，然后转入币安的web3钱包，再从web3钱包转入bybit账户。
 

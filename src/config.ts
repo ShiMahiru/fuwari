@@ -33,7 +33,7 @@ background: {
     size: "cover", // Background size: 'cover', 'contain', 'auto'
     repeat: "no-repeat", // Background repeat: 'no-repeat', 'repeat', 'repeat-x', 'repeat-y'
     attachment: "fixed", // Background attachment: 'fixed', 'scroll', 'local'
-    opacity: 1, // Background opacity (0-1)
+    opacity: 0.8, // Background opacity (0-1)
   },
 	
 	toc: {
@@ -74,7 +74,7 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "https://q2.qlogo.cn/headimg_dl?dst_uin=242531778&spec=0", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar: "https://q2.qlogo.cn/headimg_dl?dst_uin=242531778&spec=0",
 	name: "ShiMahiru",
 	bio: "我知道你为了什么而来",
 	links: [
