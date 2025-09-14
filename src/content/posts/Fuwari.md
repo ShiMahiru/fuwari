@@ -7,33 +7,91 @@ tags:
 title: 关于我的Fuwari博客修改
 ---
 # 功能实现
-- 1.Giscus评论区
+- 1.自适应Giscus评论区
 - 1.背景图及透明卡片
 - 2.文章置顶
 - 3.文章帮助反馈
 - 4.右上角友链+赞助+统计
-- 5.删除切换㳀色/深色模式
 > 若修改找不到建议搜索关键词，ps:修改高亮部分
 > 
 > 关于路径文件在哪里？ps:复制最左边
 > 
 > 至于什么时候更新这篇文章，ps:跟随本站同步更新
 
-## Giscus评论区
-建议放Giscus的新开干净的公开仓库 https://github.com/new
+---
+## 自适应Giscus评论区
+>Giscus是利用 GitHub Discussions 实现的评论系统
 
-在仓库设置中 启用 Discussion 功能
+1.前往[GitHub](https://github.com/new)创建一个公开仓库，否则访客将无法查看
 
-前往 https://giscus.app/zh-CN 填写参数
+在仓库设置中`启用 Discussion功能`
 
-分类推荐选择 公告（announcements）
+- 前往[Giscus](https://giscus.app/zh-CN)进行配置
+- 填写用户名/仓库名
+- 特性:✅将评论框放在评论上方 ✅懒加载评论
+- 其他保持默认即可
 
-✅ 将评论框放在评论上方
-✅ 懒加载评论
+配置好之后，下方会自动生成对应JS代码，复制下来保存，接下来我们要修改自适应㳀色/深色，将刚刚复制的JS加上 `data-theme`这行就行了
 
-最后将复制JS放入`src/pages/posts/[...slug].astro`
+2.在src/pages/posts目录下创建Giscus.svelte文件
+```diff
+<section>
+    <script src="https://giscus.app/client.js"
+        data-repo="[在此输入仓库]"
+        data-repo-id="[在此输入仓库 ID]"
+        data-category="[在此输入分类名]"
+        data-category-id="[在此输入分类 ID]"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
++       data-theme={$mode === DARK_MODE ? 'dark' : 'light'}
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+    </script>
+</section>
 
-## 1.背景图及透明卡片
+<script>
+import { AUTO_MODE, DARK_MODE } from '@constants/constants.ts'
+import { onMount } from 'svelte'
+import { writable } from 'svelte/store';
+import { getStoredTheme } from '@utils/setting-utils.ts'
+const mode = writable(AUTO_MODE)
+onMount(() => {
+  mode.set(getStoredTheme())
+})
+
+function updateGiscusTheme() {
+  const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+  const iframe = document.querySelector('iframe.giscus-frame')
+  if (!iframe) return
+  iframe.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, 'https://giscus.app')
+}
+
+const observer = new MutationObserver(updateGiscusTheme)
+observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+
+window.onload = () => {
+  updateGiscusTheme()
+}
+</script>
+```
+3.在 `src\pages\posts\[...slug].astro`中引入 Giscus 组件，在前5行插入既可
+```diff
++ import Giscus from "../../pages/Giscus.svelte"
+```
+在<!-- 版权信息 -->下引入组件就完成了，不知道在哪里可以搜索关键词
+```diff
+    {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
+
++   <Giscus client:only="svelte"></Giscus>
+
+```
+---
+## 2.背景图及透明卡片
 - 检测背景图片加载状态，成功加载后启用透明效果
 ### 修改点 : `/src/layouts/Layout.astro`
 ```diff
@@ -145,7 +203,8 @@ title: 关于我的Fuwari博客修改
 +    opacity: 0.5, // Background opacity (0-1)
 +  },
 ```
-## 2.加文章置顶
+---
+## 3.加文章置顶
 ### 修改点 : `/src/utils/content-utils.ts`
 ```diff
 const sorted = allBlogPosts.sort((a, b) => {
@@ -192,7 +251,8 @@ const sorted = allBlogPosts.sort((a, b) => {
 ```diff
 pinned: z.boolean().optional().default(false),
 ```
-## 3.文章帮助反馈
+---
+## 4.文章帮助反馈
 ### 修改点 : `/src/pages/posts/[...slug].astro`
 ```diff
         {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
@@ -219,7 +279,8 @@ pinned: z.boolean().optional().default(false),
 +    </div>
 +   </div>
 ```
-## 4.右上角友链+赞助+统计
+---
+## 5.右上角友链+赞助+统计
 ### 修改点 : `/src\config.ts`
 ```diff
 export const navBarConfig: NavBarConfig = {
@@ -251,6 +312,7 @@ export const navBarConfig: NavBarConfig = {
 };
 ```
 ## 创建赞助文件写入修改参数
+赞助命名alipay.svg跟wechat.svg二维码svg格式放在/donate/会改的也可以其他地方随便
 ```ts title="/pages/friends.astro"
 ---
 import MainGridLayout from "@layouts/MainGridLayout.astro";
@@ -475,103 +537,10 @@ import { Icon } from "astro-icon/components";
 }
 </style>
 ```
-然后赞助把二维码放在/donate/也可以其他地方随便
-# 配置umami
+
+# 引入umami
 ### 修改点 : `/src/layout/Layout.astro`
 ```diff
 + <script defer src="https://us.umami.is//script.js" data-website-id="xxxxxxxxxxxxxxxx"></script>
 ```
 这个去 [umami](https://us.umami.is/) 注册设置添加既可
-
-## 5.删除切换㳀色/深色模式
-
-删掉`/src/components/LightDarkSwitch.svelte文件`
-
-### 修改点 : `/src/components/Navbar.astro`
-
-```diff
-- import LightDarkSwitch from "./LightDarkSwitch.svelte";
-```
-
-```diff
-- <LightDarkSwitch client:only="svelte"></LightDarkSwitch>
-```
-
-```
--  function switchTheme() {
--    if (localStorage.theme === 'dark') {
--        document.documentElement.classList.remove('dark');
--        localStorage.theme = 'light';
--    } else {
--        document.documentElement.classList.-add('dark');
--        localStorage.theme = 'dark';
--    }
--   }
--
-function loadButtonScript() {
--    let switchBtn = document.getElementById("scheme-switch");
--    if (switchBtn) {
--        switchBtn.onclick = function () {
--            switchTheme()
--        };
--    }
-
-let settingBtn = document.getElementById("display-settings-switch");
-    if (settingBtn) {
-        settingBtn.onclick = function () {
-            let settingPanel = document.getElementById("display-setting");
-            if (settingPanel) {
-                settingPanel.classList.toggle("float-panel-closed");
-            }
-        };
-    }
-
-    let menuBtn = document.getElementById("nav-menu-switch");
-    if (menuBtn) {
-        menuBtn.onclick = function () {
-            let menuPanel = document.getElementById("nav-menu-panel");
-            if (menuPanel) {
-                menuPanel.classList.toggle("float-panel-closed");
-            }
-        };
-    }
-}
-
-loadButtonScript();
-</script>
-
--  {import.meta.env.PROD && <script is:inline define:vars={{scriptUrl: url('/pagefind/pagefind.js')}}>
--  async function loadPagefind() {
--    try {
--        const response = await fetch(scriptUrl, { method: 'HEAD' });
--        if (!response.ok) {
--            throw new Error(`Pagefind script not found: ${response.status}`);
--        }
--
--        const pagefind = await import(scriptUrl);
--
--        await pagefind.options({
--            excerptLength: 20
--        });
--
--        window.pagefind = pagefind;
--
--        document.dispatchEvent(new CustomEvent('pagefindready'));
--        console.log('Pagefind loaded and initialized successfully, event dispatched.');
--    } catch (error) {
--        console.error('Failed to load Pagefind:', error);
--        window.pagefind = {
--            search: () => Promise.resolve({ results: [] }),
--            options: () => Promise.resolve(),
--        };
--        document.dispatchEvent(new CustomEvent('pagefindloaderror'));
--        console.log('Pagefind load error, event dispatched.');
--    }
--  }
--  if (document.readyState === 'loading') {
--    document.addEventListener('DOMContentLoaded', loadPagefind);
--   } else {
--    loadPagefind();
--  }
--  </script>}
-```
