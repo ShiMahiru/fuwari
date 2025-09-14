@@ -1,7 +1,6 @@
 ---
-category: visa
 description: 记录我是怎么获取到国外的借记卡/虚拟卡
-description: 如何拥有一张0月费0年费visa卡
+category: 如何拥有一张0月费0年费visa卡
 draft: false
 published: 2025-08-20
 pinned: true
