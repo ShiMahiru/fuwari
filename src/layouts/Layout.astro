@@ -218,7 +218,19 @@ const bannerOffset =
 
 
 		<slot name="head"></slot>
-
+      <script is:inline>
+    // 域名安全提醒
+    (function checkDomain() {
+        var allowed = ["www.yuln.fun"];
+        if (!allowed.includes(window.location.hostname)) {
+            if (window.confirm("您正在访问的不是本站官方域名，是否跳转到安全域名 www.yuln.fun？")) {
+                window.location.href = "https://www.yuln.fun";
+            } else {
+                setTimeout(checkDomain, 100);
+            }
+        }
+    })();
+     </script>
 		<link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${Astro.site}rss.xml`}/>
 
        <!-- Umami分析 -->
