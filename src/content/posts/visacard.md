@@ -1,14 +1,14 @@
 ---
 category: visa
+description: 记录我是怎么获取到国外的借记卡/虚拟卡
 description: 如何拥有一张0月费0年费visa卡
 draft: false
 published: 2025-08-20
 pinned: true
 tags:
 - visa
+title: visa
 ---
-
-记录我是怎么获取到国外的信用卡的： 
 
 # Bybit Card
 > 世界第二大加密货币交易所，但Bybit真的安全吗？答案是`非常安全！`安全可靠，资金流非常充足，信誉极好，但是手续费3%还是蛮贵的，支付宝可以绑定，无法消费，微信绑定不了
@@ -21,7 +21,7 @@ tags:
 3. 纯净梯子
 
 ## 注册Bybit
-首先前往 `[Bybit]`(https://www.bybits.org/zh-MY/) 注册Bybit，
+首先前往 `[Bybit]`(https://www.bybits.org/zh-MY/) 注册Bybit
 
 ## 完成个人身份认证 (KYC)
 建议在在谷歌商店下载Bybit应用手机上完成个人身份认证 (KYC)，不会可以看`[官方文档]`(https://www.bybits.org/zh-MY/help-center/article/How-to-Complete-Individual-KYC-Verification)
