@@ -76,7 +76,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
 	avatar: "https://q2.qlogo.cn/headimg_dl?dst_uin=242531778&spec=0",
 	name: "ShiMahiru",
-	bio: "我知道你为了什么而来",
+	bio: "一个脱离了高级趣味的人",
 	links: [
       {
       name: 'QQ',
