@@ -31,11 +31,11 @@ title: 记录
 
 # 浏览器增强的油猴脚本，使用更丝滑
 
-[解除禁用复制](https://greasyfork.org/zh-CN/scripts/515938)
-[验证码自动识别填充](https://greasyfork.org/zh-CN/scripts/540822)
-[123云盘填充](https://greasyfork.org/zh-CN/scripts/519353)
-[Gemini聊天记录导出](https://greasyfork.org/zh-CN/scripts/548843)
-[提示词管理](https://greasyfork.org/zh-CN/scripts/545456-prompthelper)
-[在新标签页中打开第三方链接](https://greasyfork.org/zh-CN/scripts/464541-links-helper)
-[B站增强脚本](https://github.com/the1812/Bilibili-Evolved)
-[Github汉化插件](https://github.com/maboloshi/github-chinese)
+- [解除禁用复制](https://greasyfork.org/zh-CN/scripts/515938)
+- [验证码自动识别填充](https://greasyfork.org/zh-CN/scripts/540822)
+- [123云盘填充](https://greasyfork.org/zh-CN/scripts/519353)
+- [Gemini聊天记录导出](https://greasyfork.org/zh-CN/scripts/548843)
+- [提示词管理](https://greasyfork.org/zh-CN/scripts/545456-prompthelper)
+- [在新标签页中打开第三方链接](https://greasyfork.org/zh-CN/scripts/464541-links-helper)
+- [B站增强脚本](https://github.com/the1812/Bilibili-Evolved)
+- [Github汉化插件](https://github.com/maboloshi/github-chinese)
