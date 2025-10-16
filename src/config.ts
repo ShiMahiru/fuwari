@@ -8,7 +8,7 @@ import type {
 import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
-	title: "ShiMahiru Bolg",
+	title: "Mahiru Bolg",
 	subtitle: "技术分享与实际",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
@@ -75,7 +75,7 @@ export const navBarConfig: NavBarConfig = {
 
 export const profileConfig: ProfileConfig = {
 	avatar: "https://q2.qlogo.cn/headimg_dl?dst_uin=242531778&spec=0",
-	name: "ShiMahiru",
+	name: "Mahiru",
 	bio: "一个脱离了高级趣味的人",
 	links: [
       {
